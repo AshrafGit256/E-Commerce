@@ -64,99 +64,20 @@
                 					
                 				</div>
                 			</div>
-                            <div class="products mb-3">
-                                <div class="row justify-content-center">
-                                
-                                    @foreach($getProduct as $value)
-                                    @php
-                                        $getProductImage = $value->getImageSingle($value->id);
-                                    @endphp
-                                    <div class="col-12 col-md-4 col-lg-4">
-                                        <div class="product product-7 text-center">
-                                            <figure class="product-media">
-                                                <a href="{{ url($value->slug) }}">
-                                                    @if(!empty($getProductImage) && !empty($getProductImage->get_image()))
-                                                    <img style="height: 280px; width: 100%; object-fit:cover;" src="{{ $getProductImage->get_image() }}" alt="{{ $value->title }}" class="product-image">
-                                                    @endif
-                                                </a>
-
-                                                <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                                </div><!-- End .product-action-vertical -->
-
-                                            </figure><!-- End .product-media -->
-
-                                            <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="{{ url($value->category_slug.'/'.$value->sub_category_slug) }}">{{ $value->sub_category_name }}</a>
-                                                </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="{{ url($value->slug) }}">{{ $value->title }}</a></h3><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    ${{ number_format($value->price, 2) }}
-                                                </div><!-- End .product-price -->
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-text">( 2 Reviews )</span>
-                                                </div><!-- End .rating-container -->
-
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product -->
-                                    </div><!-- End .col-sm-6 col-lg-4 -->
-                                    @endforeach
-                                
-
-                                </div><!-- End .row -->
-                            </div><!-- End .products -->
-
-                            
-
-                			<nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    {{-- Previous Page Link --}}
-                                    @if ($getProduct->onFirstPage())
-                                        <li class="page-item disabled" aria-disabled="true" aria-label="Previous">
-                                            <span class="page-link page-link-prev" aria-hidden="true">
-                                                <i class="icon-long-arrow-left"></i> Prev
-                                            </span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link page-link-prev" href="{{ $getProduct->previousPageUrl() }}" rel="prev" aria-label="Previous">
-                                                <i class="icon-long-arrow-left"></i> Prev
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    {{-- Pagination Elements --}}
-                                    {!! $getProduct->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-
-                                    {{-- Next Page Link --}}
-                                    @if ($getProduct->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link page-link-next" href="{{ $getProduct->nextPageUrl() }}" rel="next" aria-label="Next">
-                                                Next <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled" aria-disabled="true" aria-label="Next">
-                                            <span class="page-link page-link-next" aria-hidden="true">
-                                                Next <i class="icon-long-arrow-right"></i>
-                                            </span>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </nav>
+                           
+							<div id="getProductAjax" >
+								@include('product._list');
+							</div>
 
                 		</div><!-- End .col-lg-9 -->
                 		<aside class="col-lg-3 order-lg-first">
 
-						<form id="FilterForm" method="post" action="" style="padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; max-width: 400px; margin: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-							<input type="text" name="sub_category_id" id="get_sub_category_id" placeholder="Sub Category ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
-							<input type="text" name="brand_id" id="get_brand_id" placeholder="Brand ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
-							<input type="text" name="color_id" id="get_color_id" placeholder="Color ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
-							<input type="text" name="sortby_id" id="get_sortby_id" placeholder="Sort by ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+						<form id="FilterForm" method="post" action="">
+							{{ csrf_field() }}
+							<input type="hidden" name="sub_category_id" id="get_sub_category_id" placeholder="Sub Category ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+							<input type="hidden" name="brand_id" id="get_brand_id" placeholder="Brand ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+							<input type="hidden" name="color_id" id="get_color_id" placeholder="Color ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+							<input type="hidden" name="sortby_id" id="get_sortby_id" placeholder="Sort by ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 						</form>
 
 
@@ -277,6 +198,7 @@
 		$('.ChangeSortby').change(function() {
 			var id = $(this).val();
 			$('#get_sortby_id').val(id);  // Set the value of the input field with the selected IDs
+			FilterForm();
 		});
 
 		$('.ChangeCategory').change(function() {
@@ -290,6 +212,7 @@
 			});
 
 			$('#get_sub_category_id').val(ids);  // Set the value of the input field with the selected IDs
+			FilterForm();
 		});
 
 		$('.ChangeBrand').change(function() {
@@ -303,6 +226,7 @@
 			});
 
 			$('#get_brand_id').val(ids);  // Set the value of the input field with the selected IDs
+			FilterForm();
 		});
 
 		$('.ChangeColor').click(function() {
@@ -331,7 +255,25 @@
 			});
 
 			$('#get_color_id').val(ids);
+			FilterForm();
 		});
+
+		function FilterForm() {
+			$.ajax({
+				type: "POST",
+				url: "{{ url('get_filter_product_ajax') }}",
+				data: $('#FilterForm').serialize(), // Serialize the form data
+				dataType: "json",
+				success: function(data) {
+					$('#getProductAjax').html(data.success)
+				},
+				error: function(data) {
+					// Handle error
+					console.error('An error occurred', data);
+				}
+			});
+		}
+
 </script>
 
 @endsection
