@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Models\SubCategoryModel;
+use App\Models\ColorModel;
+use App\Models\BrandModel;
 
 class ProductController extends Controller
 {
@@ -13,6 +15,10 @@ class ProductController extends Controller
     {
         $getCategory = CategoryModel::getSingleSlug($slug);
         $getSubCategory = SubCategoryModel::getSingleSlug($subslug);
+
+        $data['getColor'] = ColorModel::getRecordActive();
+
+        $data['getBrand'] = BrandModel::getRecordActive();
 
         if(!empty($getCategory) && !empty($getSubCategory))
         {
@@ -25,10 +31,14 @@ class ProductController extends Controller
 
             $data['getProduct'] = ProductModel::getProduct($getCategory->id, $getSubCategory->id);
 
+            $data['getSubCategoryFilter'] = SubCategoryModel::getRecordSubCategory($getCategory->id);
+
             return view('product.list', $data);
         }
         else if(!empty($getCategory))
         {
+            $data['getSubCategoryFilter'] = SubCategoryModel::getRecordSubCategory($getCategory->id);
+
             $data['getCategory'] = $getCategory;
 
             $data['meta_title'] = $getCategory->meta_title;
