@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductModel extends Model
 {
@@ -66,6 +67,17 @@ class ProductModel extends Model
             $brand_id_array = explode(",", $brand_id);
             $return = $return->whereIn('product.brand_id', $brand_id_array);
         }
+
+         // Handle price filter
+         if (!empty(request()->get('start_price')) && !empty(request()->get('end_price'))) {
+            $start_price = str_replace('$', '', request()->get('start_price'));
+            $end_price = str_replace('$', '', request()->get('end_price'));
+
+            $return = $return->where('product.price', '>=', $start_price)
+                             ->where('product.price', '<=', $end_price);
+        }
+
+        
 
         return $return->where('product.is_delete', '=', 0)
                       ->where('product.status', '=', 0)

@@ -78,6 +78,8 @@
 							<input type="hidden" name="brand_id" id="get_brand_id" placeholder="Brand ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 							<input type="hidden" name="color_id" id="get_color_id" placeholder="Color ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 							<input type="hidden" name="sortby_id" id="get_sortby_id" placeholder="Sort by ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+							<input type="hidden" name="start_price" id="get_start_price" placeholder="Sort by ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+							<input type="hidden" name="end_price" id="get_end_price" placeholder="Sort by ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 						</form>
 
 
@@ -273,6 +275,37 @@
 				}
 			});
 		}
+
+		// Slider For category pages / filter price
+		if ( typeof noUiSlider === 'object' ) {
+		var priceSlider  = document.getElementById('price-slider');
+
+		noUiSlider.create(priceSlider, {
+			start: [ 0, 1000 ],
+			connect: true,
+			step: 1,
+			margin: 1,
+			range: {
+				'min': 0,
+				'max': 1000
+			},
+			tooltips: true,
+			format: wNumb({
+		        decimals: 0,
+		        prefix: '$'
+		    })
+		});
+
+		// Update Price Range
+		priceSlider.noUiSlider.on('update', function( values, handle ){
+			var start_price = values[0];
+			var end_price = values[1];
+			$('#get_start_price').val(start_price);
+			$('#get_end_price').val(end_price);
+			$('#filter-price-range').text(values.join(' - '));
+			FilterForm();
+		});
+	}
 
 </script>
 
