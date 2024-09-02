@@ -15,7 +15,7 @@ class SubCategoryModel extends Model
     {
         return Self::find($id);
     }
-
+    
     public static function getSingleSlug($slug)
     {
         return Self::where('slug', '=', $slug)
