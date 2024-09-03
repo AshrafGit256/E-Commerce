@@ -65,6 +65,7 @@ Route::get('admin/product/list', [ProductController::class, 'list']);
 Route::get('admin/product/add', [ProductController::class, 'add']);
 Route::post('admin/product/add', [ProductController::class, 'insert']);
 Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
+Route::get('admin/product/delete/{id}', [ProductController::class, 'delete']);
 
 Route::post('admin/product/edit/{id}', [ProductController::class, 'update']);
 Route::get('admin/product/image_delete/{id}', [ProductController::class, 'image_delete']);
@@ -75,9 +76,9 @@ Route::post('admin/product_image_sortable', [ProductController::class, 'product_
 Route::post('logout', [AuthController::class, 'logout_admin'])->name('logout');
 
 // Example route that directly returns a view
-Route::view('admin', 'admin');
+// Route::view('admin', 'admin');
 
-Route::get('/', [HomeController::class, 'home']);
+// Route::get('/', [HomeController::class, 'home']);
 
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);

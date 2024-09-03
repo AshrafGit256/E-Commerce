@@ -162,6 +162,37 @@ class ProductController extends Controller
         }
     }
 
+    public function delete($product_id)
+{
+    // Find the product by ID
+    $product = ProductModel::find($product_id);
+
+    if ($product) {
+        // Delete associated images
+        $images = ProductImageModel::where('product_id', $product_id)->get();
+        foreach ($images as $image) {
+            if (file_exists(public_path('upload/product/' . $image->image_name))) {
+                unlink(public_path('upload/product/' . $image->image_name));
+            }
+            $image->delete();
+        }
+
+        // Delete associated colors
+        ProductColorModel::where('product_id', $product_id)->delete();
+
+        // Delete associated sizes
+        ProductSizeModel::where('product_id', $product_id)->delete();
+
+        // Delete the product itself
+        $product->delete();
+
+        return redirect()->back()->with('Success', "Product successfully deleted");
+    } else {
+        return redirect()->back()->with('Error', "Product not found");
+    }
+}
+
+
     public function image_delete($id)
     {
         $image =  ProductImageModel::getSingle($id);
