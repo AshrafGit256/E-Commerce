@@ -59,6 +59,17 @@ class User extends Authenticatable
         return User::find($id);
     }
 
+    public function getProfile()
+    {
+        if(!empty($this->profile_pic) && file_exists('public/assets/images/team/'.$this->profile_pic))
+        {
+            return url('public/assets/images/team/'.$this->profile_pic);
+        }
+        else
+        {
+            return "";
+        }
+    }
     
 }
 

@@ -52,6 +52,16 @@ class ProductModel extends Model
             $sub_category_id_array = explode(",", $sub_category_id);
             $return = $return->whereIn('product.sub_category_id', $sub_category_id_array);
         }
+        else
+        {
+            if (!empty(request()->get('old_category_id'))) {
+                $return = $return->where('product.category_id', '=', request()->get('old_category_id'));
+            } 
+    
+            if (!empty(request()->get('old_sub_category_id'))) {
+                $return = $return->where('product.sub_category_id', '=', request()->get('old_sub_category_id'));
+            }            
+        }
 
         // Handle color_id filter
         if (!empty(request()->get('color_id'))) {
@@ -83,7 +93,7 @@ class ProductModel extends Model
                       ->where('product.status', '=', 0)
                       ->groupBy('product.id')
                       ->orderBy('product.id', 'desc')
-                      ->paginate(6);
+                      ->paginate(3);
     }
 
     // Retrieve the first image for a product
@@ -92,6 +102,15 @@ class ProductModel extends Model
         return ProductImageModel::where('product_id', '=', $product_id)
                                 ->orderBy('order_by', 'asc')
                                 ->first();
+    }
+
+    // Check if a slug exists
+    public static function getSingleSlug($slug)
+    {
+        return self::where('slug', '=', $slug)
+                    ->where('product.is_delete', '=', 0)
+                    ->where('product.status', '=', 0)            
+                    ->first();
     }
 
     // Check if a slug exists
@@ -114,5 +133,15 @@ class ProductModel extends Model
     public function getImage()
     {
         return $this->hasMany(ProductImageModel::class, 'product_id')->orderBy('order_by', 'asc');
+    }
+
+    public function getCategory() 
+    {
+        return $this->belongsTo(CategoryModel:: class, 'category_id');
+    }
+
+    public function getSubCategory() 
+    {
+        return $this->belongsTo(SubCategoryModel:: class, 'sub_category_id');
     }
 }

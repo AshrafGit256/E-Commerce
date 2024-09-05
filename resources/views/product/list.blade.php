@@ -45,7 +45,7 @@
                 			<div class="toolbox">
                 				<div class="toolbox-left">
                 					<div class="toolbox-info">
-                						Showing <span>9 of 56</span> Products
+                						Showing <span>{{ $getProduct->perPage( )}} of {{ $getProduct->total() }}</span> Products
                 					</div>
                 				</div>
 
@@ -66,14 +66,26 @@
                 			</div>
                            
 							<div id="getProductAjax" >
-								@include('product._list');
+								@include('product._list')
 							</div>
+
+							<div style="text-align:center;">
+								@if(!empty($page))
+									<a href="#" style="display: inline;" data-page="{{ $page }}" class="btn btn-primary LoadMore">Load More</a>
+								@else
+									<a href="#" style="display: none;" data-page="{{ $page }}" class="btn btn-primary LoadMore">Load More</a>
+								@endif
+							</div>
+
+
 
                 		</div><!-- End .col-lg-9 -->
                 		<aside class="col-lg-3 order-lg-first">
 
 						<form id="FilterForm" method="post" action="">
 							{{ csrf_field() }}
+							<input type="hidden" name="old_sub_category_id" value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
+							<input type="hidden" name="old_category_id" value="{{ !empty($getCategory) ? $getCategory->id : '' }}">
 							<input type="hidden" name="sub_category_id" id="get_sub_category_id" placeholder="Sub Category ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 							<input type="hidden" name="brand_id" id="get_brand_id" placeholder="Brand ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
 							<input type="hidden" name="color_id" id="get_color_id" placeholder="Color ID" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
@@ -260,14 +272,30 @@
 			FilterForm();
 		});
 
+		var xhr;
 		function FilterForm() {
-			$.ajax({
+			if(xhr && xhr.readyState != 4) {
+				xhr.abort();
+			}
+			
+			xhr = $.ajax({
 				type: "POST",
 				url: "{{ url('get_filter_product_ajax') }}",
 				data: $('#FilterForm').serialize(), // Serialize the form data
 				dataType: "json",
 				success: function(data) {
-					$('#getProductAjax').html(data.success)
+					$('#getProductAjax').html(data.success);
+
+					$('.LoadMore').attr('data-page', data.page);
+
+					if(data.page == 0)
+					{
+						$('.LoadMore').hide();
+					}
+					else
+					{
+						$('.LoadMore').show();
+					}
 				},
 				error: function(data) {
 					// Handle error
@@ -275,6 +303,43 @@
 				}
 			});
 		}
+
+		$('body').delegate('.LoadMore', 'click', function(){
+			var page = $(this).attr('data-page');
+
+			$('.LoadMore').html('Loading...');
+
+			if(xhr && xhr.readyState != 4) {
+				xhr.abort();
+			}
+			
+			xhr = $.ajax({
+				type: "POST",
+				url: "{{ url('get_filter_product_ajax') }}?page="+page,
+				data: $('#FilterForm').serialize(), // Serialize the form data
+				dataType: "json",
+				success: function(data) {
+					$('#getProductAjax').append(data.success)
+					$('.LoadMore').attr('data-page', data.page);
+					$('.LoadMore').html('Load More');
+
+					if(data.page == 0)
+					{
+						$('.LoadMore').hide();
+					}
+					else
+					{
+						$('.LoadMore').show();
+					}
+				},
+				error: function(data) {
+					// Handle error
+					console.error('An error occurred', data);
+				}
+			});
+		})
+
+		var i = 0;
 
 		// Slider For category pages / filter price
 		if ( typeof noUiSlider === 'object' ) {
@@ -303,7 +368,17 @@
 			$('#get_start_price').val(start_price);
 			$('#get_end_price').val(end_price);
 			$('#filter-price-range').text(values.join(' - '));
-			FilterForm();
+
+			if(i == 0|| i == 1)
+			{
+				i++;
+			}
+
+			else
+			{
+				FilterForm();
+			}
+			
 		});
 	}
 

@@ -76,9 +76,9 @@ Route::post('admin/product_image_sortable', [ProductController::class, 'product_
 Route::post('logout', [AuthController::class, 'logout_admin'])->name('logout');
 
 // Example route that directly returns a view
-// Route::view('admin', 'admin');
+Route::view('admin', 'admin');
 
-// Route::get('/', [HomeController::class, 'home']);
+Route::get('/', [HomeController::class, 'home']);
 
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);
