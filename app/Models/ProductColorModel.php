@@ -15,4 +15,9 @@ class ProductColorModel extends Model
     {
         self::where('product_id', '=', $product_id)->delete();
     }
+
+    public function getColor()
+    {
+        return $this->belongsTo(ColorModel::class, 'color_id');
+    }
 }

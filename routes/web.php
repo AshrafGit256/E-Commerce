@@ -80,6 +80,7 @@ Route::view('admin', 'admin');
 
 Route::get('/', [HomeController::class, 'home']);
 
+Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);
 

@@ -11,6 +11,37 @@ use App\Models\BrandModel;
 
 class ProductController extends Controller
 {
+    
+    public function getProductSearch(Request $request)
+    {
+            $data['meta_title'] = 'Search';
+            $data['meta_description'] = '';
+            $data['meta_keywords'] = '';
+
+            $getProduct = ProductModel::getProduct();
+
+            $page = 0;
+            if (!empty($getProduct->nextPageUrl()))
+            {
+                $parse_url =  parse_url($getProduct->nextPageUrl());
+                if(!empty($parse_url['query']))
+                {
+                    parse_str($parse_url['query'], $get_array);
+                    $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+                }
+            }
+
+            $data['page'] = $page;
+
+            $data['getProduct'] = $getProduct;
+
+            $data['getColor'] = ColorModel::getRecordActive();
+            $data['getBrand'] = BrandModel::getRecordActive();
+
+            return view('product.list', $data);
+        
+    }
+
     public function getCategory($slug, $subslug = '')
     {
         $getProductSingle = ProductModel::getSingleSlug($slug);
@@ -28,6 +59,7 @@ class ProductController extends Controller
             $data['meta_description'] = $getProductSingle->short_description;
 
             $data['getProduct'] = $getProductSingle;
+            $data['getRelatedProduct'] = ProductModel::getRelatedProduct($getProductSingle->id, $getProductSingle->sub_category_id);
 
             return view('product.detail', $data);
         }
