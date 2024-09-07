@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ProductFront;
 
 
@@ -79,6 +80,9 @@ Route::post('logout', [AuthController::class, 'logout_admin'])->name('logout');
 Route::view('admin', 'admin');
 
 Route::get('/', [HomeController::class, 'home']);
+
+Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
+Route::get('cart', [PaymentController::class, 'cart']);
 
 Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);

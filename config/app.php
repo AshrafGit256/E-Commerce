@@ -84,6 +84,15 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    
+    // Other service providers
+        Darryldecode\Cart\CartServiceProvider::class,
+    
+
+    'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

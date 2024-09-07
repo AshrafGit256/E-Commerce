@@ -117,63 +117,56 @@
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">{{ Cart::getContent()->count() }}</span>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
+                            @if(!empty(Cart::getContent()->count()))
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-cart-products">
+                                        @foreach(Cart::getContent() as $header_cart)
+                                            @php
+                                                $getCartProduct = App\Models\ProductModel::getSingle($header_cart->id);
+                                            @endphp
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div>
+                                            @if(!empty($getCartProduct))
+                                            @php
+                                                $getProductImage = $getCartProduct->getImageSingle($getCartProduct->id);
+                                            @endphp
+                                            <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="{{ url($getCartProduct->slug) }}">
+                                                        <a href="{{ url($getCartProduct->slug) }}">{{ $getCartProduct->title }}</a>
+                                                    </h4>
 
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty">{{ $header_cart->quantity }}</span>
+                                                        x {{ number_format($header_cart->price), 2 }}
+                                                    </span>
+                                                </div>
+
+                                                <figure class="product-image-container">
+                                                    <a href="product.html" class="product-image">
+                                                        <img src="{{ $getProductImage->get_image() }}" alt="product">
+                                                    </a>
+                                                </figure>
+                                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                            </div>
+                                            @endif
+                                        @endforeach
                                     </div>
 
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
+                                    <div class="dropdown-cart-total">
+                                        <span>Total</span>
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div>
+                                        <span class="cart-total-price">${{ number_format(Cart::getSubTotal(), 2) }}</span>
+                                    </div>
 
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                    <div class="dropdown-cart-action">
+                                        <a href="{{ url('cart') }}" class="btn btn-primary">View Cart</a>
+                                        <a href="{{ url('checkout') }}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                     </div>
                                 </div>
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div>
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

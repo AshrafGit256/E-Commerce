@@ -11,6 +11,11 @@ class ProductSizeModel extends Model
 
     protected $table = 'product_size';
 
+    public static function getSingle($id)
+    {
+        return self::find($id);
+    }
+
     static function DeleteRecord($product_id)
     {
         self::where('product_id', '=', $product_id)->delete();
