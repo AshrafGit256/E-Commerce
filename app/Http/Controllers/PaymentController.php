@@ -6,10 +6,43 @@ use Illuminate\Http\Request;
 use Cart;
 use App\Models\ProductModel;
 use App\Models\ProductSizeModel;
+use App\Models\DiscountCodeModel;
 // use Darryldecode\Cart\Facades\CartFacade as Cart; // Correctly import the Cart facade
 
 class PaymentController extends Controller
 {
+    public function apply_discount_code(Request $request)
+    {
+        $getDiscount = DiscountCodeModel::CheckDiscount($request->discount_code);
+        if(!empty($getDiscount))
+        {
+            $total = Cart::getSubTotal();
+            if(!empty($getDiscount->type == 'Amount'))
+            {
+                $discount_amount = $getDiscount->percent_amount;
+                $payable_total = $total - $getDiscount->percent_amount;
+            }
+            else
+            {
+                $discount_amount = ($total * $getDiscount->percent_amount) / 100;
+                $payable_total = $total - $discount_amount;
+            }
+
+            $json['status'] = true;
+            $json['discount_amount'] = number_format($discount_amount, 2);
+            $json['payable_total'] = number_format($payable_total, 2);
+            $json['message'] = "Success";
+        }
+        else
+        {
+            $json['status'] = false;
+            $json['discount_amount'] = 0.00;
+            $json['payable_total'] = number_format(Cart::getSubTotal(), 2);
+            $json['message'] = "Discount code not found";
+        }
+
+        echo json_encode($json);
+    }
     
     public function checkout(Request $request)
     {

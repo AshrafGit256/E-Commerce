@@ -123,9 +123,9 @@
 													<td colspan="2">
 													<div class="cart-discount">
 															<div class="input-group">
-																<input type="text" class="form-control" placeholder="Discount Code">
+																<input type="text" id="getDiscountCode" class="form-control" placeholder="Discount Code">
 																<div class="input-group-append">
-																	<button type="button" style="height: 38px;" class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+																	<button type="button" id="ApplyDiscount" style="height: 38px;" class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
 																</div><!-- .End .input-group-append -->
 															</div><!-- End .input-group -->
 													</div><!-- End .cart-discount -->
@@ -134,7 +134,7 @@
 
 												<tr>
 		                							<td>Discount:</td>
-		                							<td>$0.00</td>
+		                							<td>$<span id="getDiscountAmount">0.00</span></td>
 		                						</tr><!-- End .summary-subtotal -->
 
 												<tr>
@@ -144,7 +144,7 @@
 
 		                						<tr class="summary-total">
 		                							<td>Total:</td>
-		                							<td>${{ number_format(Cart::getSubTotal(), 2) }}</td>
+		                							<td>$<span id="getPayableTotal">{{ number_format(Cart::getSubTotal(), 2) }}</span></td>
 		                						</tr><!-- End .summary-total -->
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
@@ -218,6 +218,32 @@
     
 
 @section('script')
+<script type="text/javascript">
+	$('body').delegate('#ApplyDiscount', 'click', function(){
+			var discount_code = $('#getDiscountCode').val();
 
+			$.ajax({
+				type: "POST",
+				url: "{{ url('checkout/apply_discount_code') }}?",
+				data: {
+					discount_code : discount_code,
+					"_token": "{{ csrf_token() }}",
+				},
+				dataType: "json",
+				success: function(data) {
+					$('#getDiscountAmount').html(data.discount_amount)
+					$('#getPayableTotal').html(data.payable_total)
+					if(data.status == false)
+					{
+						alert(data.message);
+					}
+				},
+				error: function(data) {
+					// Handle error
+					console.error('An error occurred', data);
+				}
+			});
+		})
+</script>
 
 @endsection

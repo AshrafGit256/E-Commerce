@@ -24,4 +24,13 @@ class DiscountCodeModel extends Model
                     ->paginate(10);
     }
 
+    static public function CheckDiscount($discount_code)
+    {
+        return self::select('discount_code.*')
+                    ->where('discount_code.is_delete', '=', 0)
+                    ->where('discount_code.status', '=', 0)
+                    ->where('discount_code.name', '=', $discount_code)
+                    ->where('discount_code.expire_date', '>=', date('Y-m-d'))
+                    ->first();
+    }
 }

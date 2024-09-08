@@ -145,7 +145,7 @@
                                                 </div>
 
                                                 <figure class="product-image-container">
-                                                    <a href="product.html" class="product-image">
+                                                    <a href="{{ url($getCartProduct->slug) }}" class="product-image">
                                                         <img src="{{ $getProductImage->get_image() }}" alt="product">
                                                     </a>
                                                 </figure>
