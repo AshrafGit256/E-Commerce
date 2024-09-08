@@ -36,6 +36,14 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
+    public function head_cart_delete($id)
+    {
+        Cart::remove($id);
+
+        return redirect()->back();
+    }
+
+    
     public function add_to_cart(Request $request)
     {
         $getProduct = ProductModel::getSingle($request->product_id);

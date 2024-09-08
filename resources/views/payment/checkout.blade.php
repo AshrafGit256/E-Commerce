@@ -123,7 +123,7 @@
 													<td colspan="2">
 													<div class="cart-discount">
 															<div class="input-group">
-																<input type="text" class="form-control" placeholder="coupon code">
+																<input type="text" class="form-control" placeholder="Discount Code">
 																<div class="input-group-append">
 																	<button type="button" style="height: 38px;" class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
 																</div><!-- .End .input-group-append -->
