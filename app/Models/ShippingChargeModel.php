@@ -24,4 +24,13 @@ class ShippingChargeModel extends Model
                     ->paginate(10);
     }
 
+    public static function getRecordActive()
+    {
+        return self::select('shipping_charge.*')
+                    ->where('shipping_charge.is_delete', '=', 0)
+                    ->where('shipping_charge.status', '=', 0)
+                    ->orderBy('shipping_charge.id', 'asc')
+                    ->get();
+    }
+    
 }

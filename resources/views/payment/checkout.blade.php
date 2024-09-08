@@ -137,11 +137,26 @@
 		                							<td>$<span id="getDiscountAmount">0.00</span></td>
 		                						</tr><!-- End .summary-subtotal -->
 
-												<tr>
-		                							<td>Shipping:</td>
-		                							<td>Free shipping</td>
-		                						</tr>
-
+												<tr class="summary-shipping">
+													<td>Shipping:</td>
+													<td>&nbsp;</td>
+												</tr>
+												@foreach($getShippingCharge as $shipping)
+												<tr class="summary-shipping-row">
+													<td>
+														<div class="custom-control custom-radio">
+															<input type="radio" id="{{ $shipping->id}}" name="shipping" data-price="{{ !empty($shipping->price) ? $shipping->price : 0 }}" class="custom-control-input get_shipping_charge">
+															<label class="custom-control-label" for="{{ $shipping->id}}">{{ $shipping->name}}</label>
+														</div><!-- End .custom-control -->
+													</td>
+													<td>
+														@if(!empty($shipping->price))
+															${{ number_format($shipping->price, 2) }}
+														@endif
+													</td>
+												</tr><!-- End .summary-shipping-row -->
+												@endforeach
+												
 		                						<tr class="summary-total">
 		                							<td>Total:</td>
 		                							<td>$<span id="getPayableTotal">{{ number_format(Cart::getSubTotal(), 2) }}</span></td>
@@ -149,7 +164,10 @@
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
-		                				<div class="accordion-summary" id="accordion-payment">
+										<input type="hidden" id="getshippingChargeTotal" value="0">
+										<input type="hidden" id="PayableTotal" value="{{ Cart::getSubTotal() }}">
+		                				
+										<div class="accordion-summary" id="accordion-payment">
 										    
 
 										    
@@ -219,6 +237,17 @@
 
 @section('script')
 <script type="text/javascript">
+	
+	$('body').delegate('.get_shipping_charge', 'click', function(){
+		var price = $(this).attr('data-price');
+		var total = $('#PayableTotal').val();
+		$('#getshippingChargeTotal').val(price)
+		var final_total = parseFloat(price) + parseFloat(total);
+		$('#getPayableTotal').html(final_total.toFixed(2))
+		
+		
+	});
+
 	$('body').delegate('#ApplyDiscount', 'click', function(){
 			var discount_code = $('#getDiscountCode').val();
 
@@ -232,7 +261,10 @@
 				dataType: "json",
 				success: function(data) {
 					$('#getDiscountAmount').html(data.discount_amount)
-					$('#getPayableTotal').html(data.payable_total)
+					var shipping = $('#getshippingChargeTotal').val();
+					var final_total = parseFloat(shipping) + parseFloat(data.payable_total);
+					$('#getPayableTotal').html(final_total.toFixed(2))
+					$('#PayableTotal').val(data.payable_total);
 					if(data.status == false)
 					{
 						alert(data.message);
