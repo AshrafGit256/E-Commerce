@@ -149,7 +149,7 @@
                                                         <img src="{{ $getProductImage->get_image() }}" alt="product">
                                                     </a>
                                                 </figure>
-                                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                                <a href="{{ url('header_cart/delete/'.$header_cart->id) }}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                             </div>
                                             @endif
                                         @endforeach
