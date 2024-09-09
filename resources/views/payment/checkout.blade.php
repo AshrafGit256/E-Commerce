@@ -165,7 +165,7 @@
 		                				</table><!-- End .table table-summary -->
 
 										<input type="hidden" id="getshippingChargeTotal" value="0">
-										<input type="hidden" id="PayableTotal" value="{{ Cart::getSubTotal() }}">
+										<input type="hidden " id="PayableTotal" value="{{ Cart::getSubTotal() }}">
 		                				
 										<div class="accordion-summary" id="accordion-payment">
 										    
