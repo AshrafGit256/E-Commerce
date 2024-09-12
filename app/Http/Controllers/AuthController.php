@@ -46,10 +46,47 @@ class AuthController extends Controller
         return redirect('/');
     }
 
+    // Customer registration
+    public function auth_login(Request $request)
+    {
+        $remember = !empty($request->is_remember) ? true : false;
+
+        if (Auth::attempt([
+            'email' => $request->email, 
+            'password' => $request->password,  
+            'status' => 0, 
+            'is_delete' => 0
+        ], $remember)) 
+        {
+            if(!empty(Auth::user()->email_verified_at))
+            {
+                $json['status'] = true;
+                $json['message'] = 'success';
+            }
+            else
+            {
+                $save = User::getSingle(Auth::user()->id);
+                Mail::to($save->email)->send(new RegisterMail($save));
+                Auth::logout();
+                $json['status'] = false;
+                $json['message'] = 'your account is not verified, Please check your inbox and verify';
+            }
+            
+        } 
+        
+        else 
+        {
+            $json['status'] = false;
+            $json['message'] = 'Please enter correct email and password';
+        }
+
+        echo json_encode($json);
+    }
+
     // Admin registration
     public function auth_register(Request $request)
     {
-        $checkEmail = User::where('email', $request->email)->first();  // Corrected method
+        $checkEmail = User::checkEmail($request->email);  // Corrected method
         if(empty($checkEmail)) {
             $save = new User;
             $save->name = trim($request->name);
@@ -61,11 +98,23 @@ class AuthController extends Controller
 
             $json['status'] = true;
             $json['message'] = "Your account has been successfully created";
-        } else {
+        } 
+        else 
+        {
             $json['status'] = false;
             $json['message'] = "Email already taken, please choose another email";
         }
 
-        return response()->json($json);
+        echo json_encode($json);
+    }
+
+    public function activate_email($id)
+    {
+        $id = base64_decode($id);
+        $user = User::getSingle($id);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        return redirect(url(''));
     }
 }

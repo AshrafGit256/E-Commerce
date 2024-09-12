@@ -100,6 +100,7 @@ Route::view('admin', 'admin');
 Route::get('/', [HomeController::class, 'home']);
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
+Route::post('auth_login', [AuthController::class, 'auth_login']);
 
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 Route::get('cart', [PaymentController::class, 'cart']);
@@ -112,6 +113,7 @@ Route::get('header_cart/delete/{id}', [PaymentController::class, 'head_cart_dele
 
 Route::get('checkout', [PaymentController::class, 'checkout']);
 Route::post('checkout/apply_discount_code', [PaymentController::class, 'apply_discount_code']);
+Route::post('checkout/place_order', [PaymentController::class, 'place_order']);
 
 Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
