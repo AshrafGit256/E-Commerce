@@ -11,4 +11,9 @@ class OrderModel extends Model
 
     protected $table = 'orders';
 
+    static public function getSingle($id)
+    {
+        return self::find($id);
+    }
+
 }

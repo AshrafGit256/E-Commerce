@@ -114,10 +114,12 @@ Route::get('header_cart/delete/{id}', [PaymentController::class, 'head_cart_dele
 Route::get('checkout', [PaymentController::class, 'checkout']);
 Route::post('checkout/apply_discount_code', [PaymentController::class, 'apply_discount_code']);
 Route::post('checkout/place_order', [PaymentController::class, 'place_order']);
+Route::get('checkout/payment', [PaymentController::class, 'checkout_payment']);
 
 Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);
 
 
+Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
