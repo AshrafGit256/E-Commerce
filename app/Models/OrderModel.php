@@ -16,4 +16,15 @@ class OrderModel extends Model
         return self::find($id);
     }
 
+    static public function getRecord()
+    {
+        $return = OrderModel::select('orders.*')
+                 ->where('is_payment', '=', 1)
+                 ->where('is_delete', '=', 0)
+                 ->orderBy('id', 'desc')
+                 ->paginate(30);
+
+        return $return;
+    }
+
 }

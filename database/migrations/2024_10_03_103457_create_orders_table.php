@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
@@ -56,3 +57,4 @@ class CreateOrdersTable extends Migration
         Schema::dropIfExists('orders');
     }
 }
+
