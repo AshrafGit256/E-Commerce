@@ -62,21 +62,21 @@
                     <td>{{$value->first_name}}  {{$value->last_name}}</td>
                     <td>{{$value->company_name}}</td>
                     <td>{{$value->country}}</td>
-                    <td>{{$value->address_one}} <br> {{$value->address_two}}</td>
+                    <td>{{$value->address_one}} <br /> {{$value->address_two}}</td>
                     <td>{{$value->city}}</td>
                     <td>{{$value->state}}</td>
                     <td>{{$value->postcode}}</td>
                     <td>{{$value->phone}}</td>
                     <td>{{$value->email}}</td>
                     <td>{{$value->discount_code}}</td>
-                    <td>{{$value->discount_amount}}</td>
-                    <td>{{$value->shipping_amount}}</td>
-                    <td>{{$value->total_amount}}</td>
-                    <td>{{$value->payment_method}}</td>
-                    <td>{{$value->Status}}</td>
+                    <td>{{ number_format($value->discount_amount, 2) }}</td>
+                    <td>{{ number_format($value->shipping_amount, 2) }}</td>
+                    <td>{{ number_format($value->total_amount, 2) }}</td>
+                    <td style="text-transform: capitalize;">{{$value->payment_method}}</td>
+                    <td></td>
                     <td>{{ date('d-m-y h:i A', strtotime($value->created_at)) }}</td>
                     <td>
-                      
+                      <a href="{{ url('admin/order/detail/'.$value->id) }}" class="btn btn-success"><i class="fas fa-eye"></i>Details</a>
                     </td>
                   </tr>
                   @endforeach

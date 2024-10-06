@@ -35,7 +35,8 @@ Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
 Route::post('admin/admin/edit/{id}', [AdminController::class, 'update']);
 Route::get('admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
-Route::get('admin/orders/list', [OrderController::class, 'list']);
+Route::get('admin/order/list', [OrderController::class, 'list']);
+Route::get('admin/order/detail/{id}', [OrderController::class, 'order_detail']);
 
 Route::get('admin/category/list', [CategoryController::class, 'list']);
 Route::get('admin/category/add', [CategoryController::class, 'add']);

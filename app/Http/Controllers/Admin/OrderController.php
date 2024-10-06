@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use Illuminate\Support\Facades\Auth;
-use App\Models\orders;
 
 class OrderController extends Controller
 {
@@ -15,6 +14,13 @@ class OrderController extends Controller
         $data['getRecord'] = OrderModel::getRecord();
         $data['header_title'] = 'Orders';
         return view('admin.order.list', $data);
+    }
+
+    public function order_detail($id)
+    {
+        $data['getRecord'] = OrderModel::getSingle($id);
+        $data['header_title'] = 'Order Detail';
+        return view('admin.order.detail', $data);
     }
 
 }
