@@ -14,6 +14,9 @@ use App\Models\OrderModel;
 use App\Models\OrderItemModel;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderInvoiceMail;
+
 
 
 class PaymentController extends Controller
@@ -163,7 +166,7 @@ class PaymentController extends Controller
                 $order->user_id = trim($user_id);
             }
 
-            // Fill in the rest of the order details
+            $order->order_number = mt_rand(100000000, 999999999);
             $order->first_name = trim($request->first_name);
             $order->last_name = trim($request->last_name);
             $order->company_name = trim($request->company_name);
@@ -233,6 +236,8 @@ class PaymentController extends Controller
                     $getOrder->is_payment = 1;
                     $getOrder->save();
 
+                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                    
                     Cart::clear();
 
                     return redirect('cart')->with('success', "Order successfully placed");

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ProductFront;
+use App\Http\Controllers\MailController;
 
 
 // Public routes
@@ -127,3 +128,4 @@ Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);
 
 Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
+Route::get('/send-email', [MailController::class, 'sendMail']);
