@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cart;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
+use Illuminate\Support\Facades\Hash;
 use App\Models\ProductModel;
 use App\Models\ColorModel;
 use App\Models\ProductSizeModel;
@@ -13,7 +14,7 @@ use App\Models\OrderModel;
 use App\Models\OrderItemModel;
 use App\Models\User;
 
-use Hash;
+
 
 class PaymentController extends Controller
 {
