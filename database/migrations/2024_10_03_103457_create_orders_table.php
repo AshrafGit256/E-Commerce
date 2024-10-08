@@ -37,7 +37,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_method')->nullable();
             
             // Status fields with comments
-            $table->tinyInteger('status')->default(0)->comment('0: active, 1: inactive');
+            $table->tinyInteger('status')->default(0)->comment('0: Pending, 1: Inprogress, 2:Delivered , 3: Completed, 4:Cancelled ');
             $table->tinyInteger('is_delete')->default(0)->comment('0: not deleted, 1: deleted');
             $table->tinyInteger('is_payment')->default(0)->comment('0: not paid, 1: paid');
             

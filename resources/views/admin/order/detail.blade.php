@@ -49,6 +49,12 @@
         padding: 15px;
     }
 
+    .card-header1 {
+        color: white;
+        background-color: #343a40;
+        padding: 15px;
+    }
+
     .btn-primary, .btn-danger {
         font-weight: bold;
         border-radius: 5px; /* Rounded button corners */
@@ -186,7 +192,7 @@
 
     <div class="col-md-12">
     <div class="card">
-              <div class="card-header">
+              <div class="card-header1">
                 <h3 class="card-title">Product Details</h3>
               </div>
 

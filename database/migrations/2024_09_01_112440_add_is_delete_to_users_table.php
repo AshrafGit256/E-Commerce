@@ -9,7 +9,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_delete')->default(0)->after('status');
+            $table->boolean('is_delete')
+                  ->default(0)
+                  ->comment('0: Not Deleted, 1: Deleted') // Adding the comment
+                  ->after('status');
         });
     }
 

@@ -73,7 +73,14 @@ class AdminController extends Controller
         $user->is_delete = 1;
         $user->save();
 
-        return redirect()->back()->with('Success', "Admin Successfully deleted");
+        return redirect()->back()->with('Success', "Record Successfully deleted");
+    }
+
+    public function customer_list()
+    {
+        $data['getRecord'] = User::getCustomer();
+        $data['header_title'] = 'Customer';
+        return view('admin.customer.list' ,$data);
     }
 
 }

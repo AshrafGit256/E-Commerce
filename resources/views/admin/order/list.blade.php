@@ -149,6 +149,7 @@
                   <thead>
                     <tr class="btn-primary">
                       <th>#</th>
+                      <th>Order Number</th>
                       <th>Name</th>
                       <th>Company Name</th>
                       <th>Country</th>
@@ -172,6 +173,7 @@
                   @foreach($getRecord as $value)
                   <tr>
                     <td>{{$value->id}}</td>
+                    <td>{{$value->order_number}}</td>
                     <td>{{$value->first_name}}  {{$value->last_name}}</td>
                     <td>{{$value->company_name}}</td>
                     <td>{{$value->country}}</td>
@@ -186,7 +188,15 @@
                     <td>{{ number_format($value->shipping_amount, 2) }}</td>
                     <td>{{ number_format($value->total_amount, 2) }}</td>
                     <td style="text-transform: capitalize;">{{$value->payment_method}}</td>
-                    <td></td>
+                    <td>
+                      <select class="form-control ChangeStatus" id="{{ $value->id }}" style="width: 150px;">
+                        <option {{ ($value->status == 0) ? 'selected' : ''}} value="0">Pending</option>
+                        <option {{ ($value->status == 1) ? 'selected' : ''}} value="1">In progress</option>
+                        <option {{ ($value->status == 2) ? 'selected' : ''}} value="2">Delivered</option>
+                        <option {{ ($value->status == 3) ? 'selected' : ''}} value="3">Completed</option>
+                        <option {{ ($value->status == 4) ? 'selected' : ''}} value="4">Cancelled</option>
+                      </select>
+                    </td>
                     <td>{{ date('d-m-y h:i A', strtotime($value->created_at)) }}</td>
                     <td>
                       <a href="{{ url('admin/order/detail/'.$value->id) }}" class="btn btn-success"><i class="fas fa-eye"></i>Details</a>
@@ -195,6 +205,11 @@
                   @endforeach
                   </tbody>
                 </table>
+
+                <div style="padding: 10px; float:right;">
+                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                </div>
+                
               </div>
               <!-- /.card-body -->
             </div>
@@ -210,4 +225,24 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+  $('body').delegate('.ChangeStatus', 'change', function(){
+    var status = $(this).val();
+    var order_id = $(this).attr('id');
+
+    $.ajax({
+              type: "GET", 
+                url: "{{ url('admin/order_status') }}",
+                data: {
+                    status : status,
+                    order_id : order_id
+                }, 
+                dataType: "json",
+                success: function(data) {
+                    alert(data.message);
+                },
+                
+            });
+  });
+</script>
 @endsection

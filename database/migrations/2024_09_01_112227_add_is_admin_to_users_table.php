@@ -12,7 +12,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')->default(0)->after('email');
+            $table->boolean('is_admin')
+                  ->default(0)
+                  ->comment('0: Admin, 1: Customer') // Adding the comment
+                  ->after('email');
         });
     }
 

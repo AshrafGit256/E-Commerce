@@ -9,7 +9,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('status')->default(1)->after('email');
+            $table->tinyInteger('status')
+                  ->default(0)
+                  ->comment('0: Active, 1: Inactive') // Adding the comment
+                  ->after('is_admin');
         });
     }
 

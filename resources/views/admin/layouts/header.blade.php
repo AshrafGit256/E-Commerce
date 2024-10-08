@@ -146,9 +146,18 @@
 
           <li class="nav-item">
             <a href="{{ url('admin/admin/list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
-            <i class="nav-icon fas fa-users"></i>
+            <i class="nav-icon fas fa-user-tie"></i>
               <p>
                 Admin
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/customer/list') }}" class="nav-link @if(Request::segment(2) == 'customer') active @endif">
+            <i class="nav-icon fas fa-users"></i>
+              <p>
+                Customers
               </p>
             </a>
           </li>
