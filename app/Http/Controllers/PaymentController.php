@@ -27,6 +27,7 @@ class PaymentController extends Controller
         $total = Cart::getSubTotal();
 
         if (!empty($getDiscount)) {
+            $total = Cart::getSubTotal();
             if ($getDiscount->type == 'Amount') {
                 $discount_amount = $getDiscount->percent_amount;
                 $payable_total = $total - $discount_amount;
@@ -166,6 +167,30 @@ class PaymentController extends Controller
                 $order->user_id = trim($user_id);
             }
 
+            $getShipping = ShippingChargeModel::getsingle($request->shipping);
+            $payable_total = Cart::getSubTotal();
+            $discount_amount = 0;
+            $discount_code = '';
+
+            if(!empty($request->discount_code))
+            {
+                $getDiscount = DiscountCodeModel::CheckDiscount($request->discount_code);
+                if(!empty($getDiscount))
+                {
+                    $discount_code = $request->discount_code;
+                    if ($getDiscount->type == 'Amount') {
+                        $discount_amount = $getDiscount->percent_amount;
+                        $payable_total = $payable_total - $discount_amount;
+                    } else {
+                        $discount_amount = ($payable_total * $getDiscount->percent_amount) / 100;
+                        $payable_total = $payable_total - $discount_amount;
+                    }
+                }
+            }
+
+            $shipping_amount = !empty($getShipping->price) ? $getShipping->price : 0;
+            $total_amount = $payable_total + $shipping_amount;
+
             $order->order_number = mt_rand(100000000, 999999999);
             $order->first_name = trim($request->first_name);
             $order->last_name = trim($request->last_name);
@@ -179,27 +204,30 @@ class PaymentController extends Controller
             $order->phone = trim($request->phone);
             $order->email = trim($request->email);
             $order->note = trim($request->note);
-            $order->discount_code = trim($request->discount_code);
-            $order->shipping_id = trim($request->shipping_id);
+            $order->discount_amount = trim($discount_amount);
+            $order->discount_code = trim($discount_code);
+            $order->shipping_id = trim($request->shipping);
+            $order->shipping_amount = trim($shipping_amount);
+            $order->total_amount = trim($total_amount);
             $order->payment_method = trim($request->payment_method);
             $order->save();
 
-            foreach (Cart::getContent() as $cart) {
+            foreach (Cart::getContent() as $key => $cart) {
                 $order_item = new OrderItemModel;
                 $order_item->order_id = $order->id;
                 $order_item->product_id = $cart->id;
                 $order_item->quantity = $cart->quantity;
                 $order_item->price = $cart->price;
+                
+                $color_id =  $cart->attributes->color_id;
 
-                // Handling color and size attributes
-                $color_id = $cart->attributes->color_id;
-                if ($color_id) {
+                if (!empty($color_id)) {
                     $getColor = ColorModel::getSingle($color_id);
                     $order_item->color_name = $getColor->name;
                 }
-
-                $size_id = $cart->attributes->size_id;
-                if ($size_id) {
+                
+                $size_id =  $cart->attributes->size_id;
+                if (!empty($size_id)) {
                     $getSize = ProductSizeModel::getSingle($size_id);
                     $order_item->size_name = $getSize->name;
                     $order_item->size_amount = $getSize->price;

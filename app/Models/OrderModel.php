@@ -17,6 +17,57 @@ class OrderModel extends Model
         return self::find($id);
     }
 
+    //User Part
+    static public function getTotalOrderUser($user_id)
+    {
+      return self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->count();
+    }
+
+    static public function getTotalTodayOrderUser($user_id)
+    {
+      return self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
+    }
+
+    static public function getTotalAmountUser($user_id)
+    {
+      return self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->sum('total_amount');
+    }
+
+    static public function getTotalTodayAmountUser($user_id)
+    {
+      return self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->sum('total_amount');
+    }
+
+    static public function getTotalStatusUser($user_id, $status)
+    {
+      return self::select('id')
+                ->where('status', '=', $status)
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->count();
+    }
+
+    //End User Part
+
     static public function getTotalOrder()
     {
       return self::select('id')
@@ -79,6 +130,16 @@ class OrderModel extends Model
               ->orderBy('id', 'desc')
               ->limit(10)
               ->get();
+    }
+
+    static public function getRecordUser($user_id)
+    {
+        return OrderModel::select('orders.*')
+                  ->where('user_id', '=', $user_id)
+                  ->where('is_payment', '=', 1)
+                  ->where('is_delete', '=', 0)
+                  ->orderBy('id', 'desc')
+                  ->paginate(20);
     }
 
     static public function getRecord()

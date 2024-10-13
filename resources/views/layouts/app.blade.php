@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-<!-- molla/index-2.html  22 Nov 2019 09:55:32 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,19 +14,32 @@
     <meta name="keywords" content="{{ $meta_keywords }}">
     @endif
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('assets/images/icons/favicon-32x32.png') }}">
-    
-    <link rel="shortcut icon" href="{{ url('assets/images/icons/favicon.ico') }}">
+    @php
+        $getSystemSettingApp = App\Models\SystemSettingModel::getSingle();
+    @endphp
 
-    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css') }}">
     
+    <link rel="shortcut icon" href="{{ $getSystemSettingApp->getFavicon() }}">
 
-    <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <!-- Corrected Font Awesome links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Local CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
     @yield('style')
+
+    <style type="text/css">
+        .btn-wishlist-add::after {
+            content: '\f233' !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -95,7 +105,7 @@
                                                 <label class="custom-control-label" for="signin-remember">Remember Me</label>
                                             </div><!-- End .custom-checkbox -->
 
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                            <a href="{{ url('forgot-password') }}" class="forgot-link">Forgot Your Password?</a>
                                         </div><!-- End .form-footer -->
                                     </form>
                                     
@@ -227,9 +237,34 @@
 					// Handle error
 					console.error('An error occurred', data);
 				}
+            });
+        });
+
+        $('body').delegate('.add_to_wishlist', 'click', function(e){
+            var product_id = $(this).attr('id');
+            $.ajax({
+				type: "POST",
+				url: "{{ url('add_to_wishlist') }}",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    product_id:product_id,
+                },
+				dataType: "json",
+				success: function(data) {
+					if(data.is_wishlist == 0)
+                    {
+                        $('.add_to_wishlist'+product_id).removeClass('btn-wishlist-add')
+                    }
+                    else
+                    {
+                        $('.add_to_wishlist'+product_id).addClass('btn-wishlist-add')
+                    }
+                    
+				},
         });
 
     });
+    
 
     </script>
 

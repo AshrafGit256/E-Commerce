@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')
                   ->default(0)
-                  ->comment('0: Admin, 1: Customer') // Adding the comment
+                  ->comment('0: Customer, 1: Admin') // Adding the comment
                   ->after('email');
         });
     }

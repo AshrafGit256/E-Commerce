@@ -120,8 +120,11 @@
                                         <button type="submit" class="btn-product btn-cart">Add to cart</button>
 
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> -->
+                                            @if(!empty(Auth::check()))
+                                                <a href="javascript:;" class="add_to_wishlist add_to_wishlist{{ $getProduct->id }} {{ !empty($getProduct->checkWishList($getProduct->id)) ? 'btn-wishlist-add' : ''}} btn-product btn-wishlist" title="Wishlist" id="{{ $getProduct->id }}" ><span>Add to Wishlist</span></a>
+                                            @else
+                                                <a href="#signin-modal" data-toggle="modal" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                            @endif
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
                                 </form>
@@ -294,7 +297,13 @@
                                 </a>
 
                                 <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+
+                                    @if(!empty(Auth::check()))
+                                        <a href="javascript:;" data-toggle="modal" class="add_to_wishlist add_to_wishlist{{ $value->id }}  btn-product-icon btn-wishlist btn-expandable {{ !empty($value->checkWishList($value->id)) ? 'btn-wishlist-add' : ''}} " id="{{ $value->id }}" title="Wishlist"><span>add to wishlist</span></a>
+                                    @else
+                                        <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable" title="Wishlist"><span>add to wishlist</span></a>
+                                    @endif
+
                                 </div><!-- End .product-action-vertical -->
 
                             </figure><!-- End .product-media -->

@@ -8,10 +8,20 @@ use App\Models\ProductModel;
 use App\Models\SubCategoryModel;
 use App\Models\ColorModel;
 use App\Models\BrandModel;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    
+    public function my_wishlist()
+    {
+        $data['meta_title'] = 'My Wishlist';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+
+        $data['getProduct'] = ProductModel::getMyWishlist(Auth::user()->id);
+        return view('product.my_wishlist', $data);
+    }
+
     public function getProductSearch(Request $request)
     {
             $data['meta_title'] = 'Search';

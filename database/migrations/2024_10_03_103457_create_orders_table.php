@@ -30,10 +30,10 @@ class CreateOrdersTable extends Migration
             $table->string('email');
             $table->text('note')->nullable();
             $table->string('discount_code')->nullable();
-            $table->decimal('discount_amount', 8, 2)->default(0);
-            $table->unsignedBigInteger('shipping_id')->nullable();
-            $table->decimal('shipping_amount', 8, 2)->default(0);
-            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->string('discount_amount', 8)->default('0');
+            $table->integer('shipping_id')->nullable();
+            $table->string('shipping_amount', 8)->default('0');
+            $table->string('total_amount', 8)->default('0');
             $table->string('payment_method')->nullable();
             
             // Status fields with comments

@@ -15,14 +15,14 @@ class CreateOrdersItemTable extends Migration
     {
         Schema::create('orders_item', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id')->nullable(); // Foreign key to the orders table
+            $table->integer('order_id')->nullable(); // Foreign key to the orders table
             $table->integer('product_id')->unsigned()->nullable(); // Foreign key to the products table
             $table->integer('quantity')->default(0); // Quantity of the product
-            $table->decimal('price', 8, 2); // Product price
+            $table->string('price', 25)->default('0')->nullable();
             $table->string('color_name')->nullable(); // Color of the product
             $table->string('size_name')->nullable(); // Size of the product
-            $table->integer('size_amount')->default(1); // Quantity of the product
-            $table->decimal('total_price', 10, 2); // Total price for this item
+            $table->string('size_amount')->default(0); // Quantity of the product
+            $table->string('total_price', 25)->default('0');
             $table->timestamps(); // created_at and updated_at
 
             // Foreign key constraints (optional)

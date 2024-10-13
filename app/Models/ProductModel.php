@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request; // Correct import
+use Illuminate\Support\Facades\Auth;
 
 class ProductModel extends Model
 {
@@ -26,6 +27,26 @@ class ProductModel extends Model
                     ->where('product.is_delete', '=', 0)
                     ->orderBy('product.id', 'desc')
                     ->paginate(10);
+    }
+
+    public static function getMyWishlist($user_id)
+    {
+        $query = self::select('product.*', 'users.name as created_by_name', 
+                            'category.name as category_name', 'category.slug as category_slug', 
+                            'sub_category.name as sub_category_name', 'sub_category.slug as sub_category_slug')
+                    ->join('users', 'users.id', '=', 'product.created_by')
+                    ->join('category', 'category.id', '=', 'product.category_id')
+                    ->join('sub_category', 'sub_category.id', '=', 'product.sub_category_id')
+                    ->join('product_wishlist', 'product_wishlist.product_id', '=', 'product.id')
+                    ->where('product_wishlist.user_id', '=', $user_id)
+                    ->where('product.is_delete', '=', 0)
+                    ->where('product.status', '=', 0)
+                    ->groupBy('product.id')
+                    ->orderBy('product.id', 'desc')
+                    ->paginate(10);
+                    
+
+        return $query;
     }
 
     // Retrieve products with various filters
@@ -98,6 +119,8 @@ class ProductModel extends Model
         return $query->groupBy('product.id')
                      ->orderBy('product.id', 'desc')
                      ->paginate(10);
+
+        return $return;
     }
 
     public static function getRelatedProduct($product_id = '', $sub_category_id = '')
@@ -139,6 +162,11 @@ class ProductModel extends Model
     public static function checkSlug($slug)
     {
         return self::where('slug', '=', $slug)->count();
+    }
+
+    public static function checkWishList($product_id)
+    {
+        return ProductWishlistModel::checkAlready($product_id, Auth::user()->id);
     }
 
     // Relationships

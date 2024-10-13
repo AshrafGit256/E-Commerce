@@ -2,14 +2,14 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <div class="header-dropdown">
+                        <!-- <div class="header-dropdown">
                             <a href="#">Usd</a>
                             <div class="header-menu">
                                 <ul>
                                     <li><a href="#">Usd</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="header-dropdown">
                             <a href="#">Eng</a>
@@ -26,11 +26,20 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                    <li><a href="{{ url('wishlist') }}"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
-                                    <li><a href="{{ url('about') }}">About Us</a></li>
-                                    <li><a href="{{ url('contact') }}">Contact Us</a></li>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                    <li><a href="tel:{{ $getSystemSettingApp->phone}}"><i class="fas fa-phone-alt"></i>Call: {{ $getSystemSettingApp->phone}}</a></li>
+                                    @if(!empty(Auth::check()))
+                                        <li><a href="{{ url('my-wishlist') }}"><i class="fas fa-heart"></i>My Wishlist </a></li>
+                                    @else
+                                        <li><a href="#signin-modal" data-toggle="modal"><i class="fas fa-heart"></i>My Wishlist</a></li>
+                                    @endif
+                                    <li><a href="{{ url('about') }}"><i class="fas fa-info-circle"></i>About Us</a></li>
+                                    <li><a href="{{ url('contact') }}"><i class="fas fa-envelope"></i></i>Contact Us</a></li>
+                                    @if(!empty(Auth::check()))
+                                        <li><a href="{{ url('user/dashboard') }}"><i class="fas fa-user"></i>{{ Auth::user()->name }}</a></li>
+                                    @else
+                                        <li><a href="#signin-modal" data-toggle="modal"><i class="fas fa-user"></i>Login</a></li>
+                                    @endif
+                                    
                                 </ul>
                             </li>
                         </ul>
@@ -47,18 +56,21 @@
                         </button>
 
                         <a href="{{ url('') }}" class="logo">
-                            <img src="{{ url('assets/images/logo.png') }}" alt="E-Commerce" width="105" height="25">
+                            <img src="{{ $getSystemSettingApp->getLogo() }}" alt="E-Commerce" width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="active">
-                                    <a href="{{ url('') }}">Home</a>
+                            <li class="active">
+                                <a href="{{ url('') }}">
+                                    <i class="fas fa-home"></i> Home
+                                </a>
+                            </li>
 
-                                    
-                                </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Shop</a>
+                                    <a href="#" class="sf-with-ul">
+                                    <i class="fas fa-shopping-bag"></i> Shop
+                                    </a>
 
                                     <div class="megamenu megamenu-md">
                                         <div class="row no-gutters">

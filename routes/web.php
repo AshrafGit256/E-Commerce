@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ProductFront;
 use App\Http\Controllers\MailController;
@@ -22,7 +24,21 @@ use App\Http\Controllers\MailController;
 Route::get('/', [AuthController::class, 'login_admin']);
 Route::post('/', [AuthController::class, 'Auth_login_admin']);
 
+
 // Admin routes with 'admin' middleware
+Route::group(['middleware' => 'user'], function() {
+    
+});
+
+Route::get('user/dashboard', [UserController::class, 'dashboard']);
+Route::get('user/orders', [UserController::class, 'orders']);
+Route::get('user/edit-profile', [UserController::class, 'edit_profile']);
+Route::get('user/change-password', [UserController::class, 'change_password']);
+
+Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
+
+Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);
+
 Route::group(['middleware' => 'admin'], function() {
     
 });
@@ -98,8 +114,21 @@ Route::get('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 
 Route::post('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 'update']);
 Route::get('admin/shipping_charge/delete/{id}', [ShippingChargeController::class, 'delete']);
 
+Route::get('admin/page/list', [PageController::class, 'list']);
+Route::get('admin/page/edit/{id}', [PageController::class, 'edit']);
+Route::post('admin/page/edit/{id}', [PageController::class, 'update']);
 
-// Logout route
+Route::get('admin/system-setting', [PageController::class, 'system_setting']);
+Route::post('admin/system-setting', [PageController::class, 'update_system_setting']);
+
+Route::get('admin/contactUs', [PageController::class, 'contactUs']);
+Route::get('admin/contactUs/delete/{id}', [PageController::class, 'contactUs_delete']);
+
+
+// Admin logout
+Route::get('logout', [AuthController::class, 'logout_admin'])->name('logout');
+
+//Customer logout
 Route::post('logout', [AuthController::class, 'logout_admin'])->name('logout');
 
 // Example route that directly returns a view
@@ -107,8 +136,26 @@ Route::view('admin', 'admin');
 
 Route::get('/', [HomeController::class, 'home']);
 
+Route::get('contact', [HomeController::class, 'contact']);
+Route::post('contact', [HomeController::class, 'submit_contact']);
+Route::get('about', [HomeController::class, 'about']);
+Route::get('faq', [HomeController::class, 'faq']);
+Route::get('payment-methods', [HomeController::class, 'payment_methods']);
+Route::get('money-back-guarantee', [HomeController::class, 'money_back_guarantee']);
+Route::get('return', [HomeController::class, 'return']);
+Route::get('shipping', [HomeController::class, 'shipping']);
+Route::get('terms-condition', [HomeController::class, 'terms_conditions']);
+Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
+
+
 Route::post('auth_register', [AuthController::class, 'auth_register']);
+Route::get('activate/{id}', [AuthController::class, 'activate_email'])->name('activate.email');
 Route::post('auth_login', [AuthController::class, 'auth_login']);
+Route::get('forgot-password', [AuthController::class, 'forgot_password']);
+Route::post('forgot-password', [AuthController::class, 'auth_forgot_password']);
+Route::get('reset/{token}', [AuthController::class, 'reset']);
+Route::post('reset/{token}', [AuthController::class, 'auth_reset']);
+
 
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 Route::get('cart', [PaymentController::class, 'cart']);

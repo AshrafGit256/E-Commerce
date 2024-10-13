@@ -29,7 +29,7 @@ class RegisterMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'E-Commerce Registration',
+            subject: 'E-Commerce Validation',
         );
     }
 
