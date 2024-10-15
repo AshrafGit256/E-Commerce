@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Mail\RegisterMail;
 use App\Mail\ContactUsMail;
+use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 use App\Models\PageModel;
 use App\Models\SystemSettingModel;
 use App\Models\ContactUsModel;
+use App\Models\PartnerModel;
+use App\Models\ProductModel;
+use App\Models\SliderModel;
+use App\Models\BlogModel;
+use App\Models\BlogCategoryModel;
+use App\Models\BlogCommentModel;
+use App\Models\HomeSettingModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -18,12 +26,37 @@ class HomeController extends Controller
         $getPage = PageModel::getSlug('home');
         $data['getPage'] = $getPage;
 
+        $data['getHomeSetting'] = HomeSettingModel::getSingle();
+
+        $data['getBlog'] = BlogModel::getRecordActiveHome();
+        $data['getSlider'] = SliderModel::getRecordActive();
+        $data['getPartner'] = PartnerModel::getRecordActive();
+        $data['getCategory'] = CategoryModel::getRecordActiveHome();
+
+        $data['getProduct'] = ProductModel::getRecentArrival();
+        $data['getProductTrendy'] = ProductModel::getProductTrendy();
+
         $data['meta_title'] = $getPage->meta_title;
         $data['meta_description'] = $getPage->meta_description;
         $data['meta_keywords'] = $getPage->meta_keywords;
 
         return view('home', $data);
     }
+
+    public function recent_arrival_category_product(Request $request)
+    {
+        $getProduct = ProductModel::getRecentArrival();
+        $getCategory = CategoryModel::getSingle($request->category_id);
+        
+        return response()->json([
+            "status" => true,
+            "success" => view("product._list_recent_arrival", [
+                "getProduct" => $getProduct,
+                "getCategory" => $getCategory,
+            ])->render(),
+        ], 200);
+    }
+
 
     public function contact()
     {
@@ -184,4 +217,87 @@ class HomeController extends Controller
 
         return view('page.privacy_policy', $data);
     }
+
+    public function blog()
+    {
+        $getPage = PageModel::getSlug('blog');
+        $data['getPage'] = $getPage;
+
+        $data['meta_title'] = $getPage->meta_title;
+        $data['meta_description'] = $getPage->meta_description;
+        $data['meta_keywords'] = $getPage->meta_keywords;
+
+        $data['getBlog'] = BlogModel::getBlog();
+        $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+        $data['getPopular'] = BlogModel::getPopular(); 
+        return view('blog.list', $data);
+    }
+
+    public function blog_detail($slug)
+    {
+        $getBlog = BlogModel::getSingleSlug($slug);
+        if (!empty($getBlog)) 
+        {
+            $total_views = $getBlog->total_views; 
+            $getBlog->total_views = $total_views + 1; 
+            $getBlog->save(); 
+            
+            $data['getBlog'] = $getBlog;
+            $data['meta_title'] = $getBlog->meta_title;
+            $data['meta_description'] = $getBlog->meta_description;
+            $data['meta_keywords'] = $getBlog->meta_keywords;
+            $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+
+            $data['getPopular'] = BlogModel::getPopular(); 
+            $data['getRelatedPost'] = BlogModel::getRelatedPost($getBlog->blog_category_id, $getBlog->id); 
+            
+            return view('blog.detail', $data);
+        }
+        
+        else
+        {
+            //dd('Slug not found', $slug, $getBlog);
+            abort(404);
+        }
+        
+    }
+
+    public function blog_category($slug)
+    {
+        $getCategory = BlogCategoryModel::getSingleSlug($slug);
+        if (!empty($getCategory)) 
+        {
+            $data['getCategory'] = $getCategory;
+            $data['meta_title'] = $getCategory->meta_title;
+            $data['meta_description'] = $getCategory->meta_description;
+            $data['meta_keywords'] = $getCategory->meta_keywords;
+
+            $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+            $data['getPopular'] = BlogModel::getPopular(); 
+
+            $data['getBlog'] = BlogModel::getBlog($getCategory->id);
+            
+            return view('blog.category', $data);
+        }
+        
+        else
+        {
+            //dd('Slug not found', $slug, $getBlog);
+            abort(404);
+        }
+        
+    }
+
+    
+    public function submit_blog_comment(Request $request)
+    {
+        $comment = new BlogCommentModel;
+        $comment->user_id = Auth::user()->id;
+        $comment->blog_id = $request->blog_id;
+        $comment->comment = trim($request->comment);
+        $comment->save();
+
+        return redirect()->back()->with('success', "Your Comment Has been successfully Submited");
+    }
+
 }

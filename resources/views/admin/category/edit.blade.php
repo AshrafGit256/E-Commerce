@@ -31,7 +31,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="post">
+              <form action="" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card-body">
 
@@ -54,7 +54,33 @@
                     </select>
                   </div>
 
-                  <hr>
+                  <hr style="border: 1px dashed #ccc; margin-top: 35px;">
+
+                  <div class="form-group">
+                      <label>Image<span style="color: red;">*</span></label> <!-- Add * if it's a required field -->
+                      <input type="file" name="image_name" class="form-control">
+                      @if(!empty($getRecord->getImage()))
+                          <img src="{{ $getRecord->getImage() }}" style="height: 100px; width: 100px; border-radius: 20%;">
+                      @endif
+                  </div>
+
+
+                  <div class="form-group">
+                    <label>Button Name <span style="color: red;"></span></label>
+                    <input type="text" name="button_name" value="{{ old('button_name', $getRecord->button_name) }}" class="form-control"  placeholder="Enter Button Name">
+                  </div>
+
+                  <div class="form-group">
+                    <label style="display: block;">Home Screen<span style="color: red;"></span></label>
+                    <input type="checkbox" {{ !empty($getRecord->is_home) ? 'checked' : ''}} name="is_home">
+                  </div>
+
+                  <div class="form-group">
+                    <label style="display: block;">Menu<span style="color: red;"></span></label>
+                    <input type="checkbox" {{ !empty($getRecord->is_menu) ? 'checked' : ''}} name="is_menu">
+                  </div>
+
+                  <hr style="border: 1px dashed #ccc;">
 
                   <div class="form-group">
                     <label>Meta Title<span style="color: red;">*</span></label>

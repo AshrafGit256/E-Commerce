@@ -13,63 +13,7 @@
     <ul class="navbar-nav ml-auto ">
       
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{ url('dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{ url('dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{ url('dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
+     
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -109,7 +53,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="{{ url('assets/images/icons/favicon-32x32.png') }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="opacity: .8">
@@ -236,6 +180,24 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ url('admin/slider/list') }}" class="nav-link @if(Request::segment(2) == 'slider') active @endif">
+            <i class="nav-icon fas fa-images"></i>
+              <p>
+                Slider
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/partner/list') }}" class="nav-link @if(Request::segment(2) == 'partner') active @endif">
+            <i class="nav-icon fas fa-handshake"></i>
+              <p>
+                Partner Logo
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ url('admin/contactUs') }}" class="nav-link @if(Request::segment(2) == 'contactUs') active @endif">
             <i class="nav-icon fas fa-phone"></i>
               <p>
@@ -244,7 +206,9 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          
+              
+         <li class="nav-item">
             <a href="{{ url('admin/page/list') }}" class="nav-link @if(Request::segment(2) == 'page') active @endif">
             <i class="nav-icon fas fa-book"></i>
               <p>
@@ -254,10 +218,37 @@
           </li>
 
           <li class="nav-item">
+              <a href="{{ url('admin/blog_category/list') }}" class="nav-link @if(Request::segment(2) == 'blog_category') active @endif">
+                  <i class="nav-icon fas fa-tags"></i> <!-- Changed icon to fa-tags -->
+                  <p>
+                      Blog Category
+                  </p>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a href="{{ url('admin/blog/list') }}" class="nav-link @if(Request::segment(2) == 'blog') active @endif">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>
+                      Blog 
+                  </p>
+              </a>
+          </li>          
+
+          <li class="nav-item">
             <a href="{{ url('admin/system-setting') }}" class="nav-link @if(Request::segment(2) == 'system-setting') active @endif">
             <i class="nav-icon fas fa-cog"></i>
               <p>
                 System Setting
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/home-setting') }}" class="nav-link @if(Request::segment(2) == 'home-setting') active @endif">
+            <i class="nav-icon fas fa-home"></i>
+              <p>
+                Home Setting
               </p>
             </a>
           </li>

@@ -40,6 +40,7 @@
 	            					<li><a href="{{ url('about') }}">About Us</a></li>
 	            					<li><a href="{{ url('faq') }}">FAQ</a></li>
 	            					<li><a href="{{ url('contact') }}">Contact us</a></li>
+									<li><a href="{{ url('blog') }}">Blog</a></li>
 	            					<li><a href="#signin-modal" data-toggle="modal">Log in</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
@@ -67,8 +68,6 @@
 	            				<ul class="widget-list">
 	            					<li><a href="{{ url('cart') }}">View Cart</a></li>
 	            					<li><a href="{{ url('checkout') }}">Checkout</a></li>
-	            					<li><a href="{{ url('') }}">Track My Order</a></li>
-	            					
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->

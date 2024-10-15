@@ -107,6 +107,11 @@
                             <div class="form-group">
                                 <label><i class="fas fa-id-badge"></i> ID: <span>{{ $getRecord->id }}</span></label>
                             </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-id-badge"></i> Order Number: <span>{{ $getRecord->order_number }}</span></label>
+                            </div>
+
                             <div class="form-group">
                                 <label><i class="fas fa-receipt"></i> Transaction ID: <span>{{ $getRecord->transaction_id }}</span></label>
                             </div>

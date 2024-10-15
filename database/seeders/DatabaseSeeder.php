@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         // Call your seeder classes here
         $this->call(SystemSettingSeeder::class);
+        
     }
 }

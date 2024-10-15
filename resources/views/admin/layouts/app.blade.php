@@ -19,7 +19,7 @@
 
 <body class="hold-transition sidebar-mini">
     
-<div class="wrapper">
+<div class="wrapper" >
     @include('admin.layouts.header')
     @yield('content')
     @include('admin.layouts.footer')

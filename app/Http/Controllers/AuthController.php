@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\NotificationModel;
 use App\Mail\RegisterMail;
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Facades\Mail;
@@ -97,6 +98,12 @@ class AuthController extends Controller
             $save->save();
 
             Mail::to($save->email)->send(new RegisterMail($save));
+
+            $user_id = $save->id;
+            $url = url('admin/customer/list');
+            $message = "New Customer Registers #".$request->name;
+
+            NotificationModel::insertRecord($user_id, $url, $message);
 
             $json['status'] = true;
             $json['message'] = "Your account has been successfully created. Please verify your email address";

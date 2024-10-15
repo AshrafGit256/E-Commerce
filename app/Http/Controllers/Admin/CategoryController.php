@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -38,6 +39,21 @@ class CategoryController extends Controller
         $Category->meta_description = trim($request->meta_description);
         $Category->meta_keywords = trim($request->meta_keywords);
         $Category->created_by = Auth::user()->id;
+
+        $Category->button_name = trim($request->button_name);
+        $Category->is_home = !empty($request->is_home) ? 1 : 0;
+        $Category->is_menu = !empty($request->is_menu) ? 1 : 0;
+
+        if(!empty($request->file('image_name')))
+        {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move(public_path('upload/category/'), $filename);
+            $Category->image_name = trim($filename);
+        }
+
         $Category->save();
 
         return redirect('admin/category/list')->with('Success', "Category Successfully created");
@@ -64,6 +80,21 @@ class CategoryController extends Controller
         $category->meta_title = trim($request->meta_title);
         $category->meta_description = trim($request->meta_description);
         $category->meta_keywords = trim($request->meta_keywords);
+
+        $category->button_name = trim($request->button_name);
+        $category->is_home = !empty($request->is_home) ? 1 : 0;
+        $category->is_menu = !empty($request->is_menu) ? 1 : 0;
+
+        if(!empty($request->file('image_name')))
+        {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move(public_path('upload/category/'), $filename);
+            $category->image_name = trim($filename);
+        }
+
         $category->save();
 
         return redirect('admin/category/list')->with('Success', "Category Successfully Updated"); 

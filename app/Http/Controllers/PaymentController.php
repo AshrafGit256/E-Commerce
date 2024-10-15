@@ -12,6 +12,7 @@ use App\Models\DiscountCodeModel;
 use App\Models\ShippingChargeModel;
 use App\Models\OrderModel;
 use App\Models\OrderItemModel;
+use App\Models\NotificationModel;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Mail;
@@ -265,6 +266,12 @@ class PaymentController extends Controller
                     $getOrder->save();
 
                     Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+                    $user_id = $getOrder->user_id;
+                    $url = url('admin/order/detail/'.$getOrder->id);
+                    $message = "New Order Placed #".$getOrder->order_number;
+
+                    NotificationModel::insertRecord($user_id, $url, $message);
                     
                     Cart::clear();
 

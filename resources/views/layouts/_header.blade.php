@@ -61,7 +61,7 @@
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                            <li class="active">
+                            <li class="{{ (Request::segment(1) == '') ? 'active' : '' }}">
                                 <a href="{{ url('') }}">
                                     <i class="fas fa-home"></i> Home
                                 </a>
@@ -69,7 +69,7 @@
 
                                 <li>
                                     <a href="#" class="sf-with-ul">
-                                    <i class="fas fa-shopping-bag"></i> Shop
+                                    <i class="fas fa-box-open"></i> Shop
                                     </a>
 
                                     <div class="megamenu megamenu-md">
@@ -110,6 +110,17 @@
                                     </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 
+                                @php
+                                    $getCategoryHeaderMenu = App\Models\CategoryModel::getRecordMenuHeader();
+                                @endphp
+
+                                @foreach($getCategoryHeaderMenu as $menu)
+                                <li class="{{ (Request::segment(1) == $menu->slug) ? 'active' : '' }}">
+                                    <a href="{{ $menu->slug }}">
+                                    <i class="fas fa-shopping-bag"></i> {{ $menu->name }}
+                                    </a>
+                                </li>
+                                @endforeach
                                 
                             </ul>
                         </nav>

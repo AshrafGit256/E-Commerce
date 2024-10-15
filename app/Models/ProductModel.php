@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductSizeModel;
 use Illuminate\Http\Request; // Correct import
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +50,64 @@ class ProductModel extends Model
         return $query;
     }
 
-    // Retrieve products with various filters
+    public static function getRecentArrival()
+    {
+        $return = self::select(
+                            'product.*', 
+                            'users.name as created_by_name', 
+                            'category.name as category_name', 
+                            'category.slug as category_slug', 
+                            'sub_category.name as sub_category_name', 
+                            'sub_category.slug as sub_category_slug'
+                        )
+                        ->join('users', 'users.id', '=', 'product.created_by')
+                        ->join('category', 'category.id', '=', 'product.category_id')
+                        ->join('sub_category', 'sub_category.id', '=', 'product.sub_category_id')
+                        ->where('product.is_delete', '=', 0)
+                        ->where('product.status', '=', 0);
+
+        // Check for 'category_id' from request
+        if (!empty(request()->get('category_id'))) {
+            $return = $return->where('product.category_id', '=', request()->get('category_id'));
+        }
+
+        $return = $return->groupBy('product.id')
+                        ->orderBy('product.id', 'desc')
+                        ->limit(8)
+                        ->get();
+
+        return $return;
+    }
+
+
+
+    public static function getProductTrendy()
+    {
+        $query = self::select(
+                        'product.*', 
+                        'users.name as created_by_name', 
+                        'category.name as category_name', 
+                        'category.slug as category_slug', 
+                        'sub_category.name as sub_category_name', 
+                        'sub_category.slug as sub_category_slug'
+                    )
+                    ->join('users', 'users.id', '=', 'product.created_by')
+                    ->join('category', 'category.id', '=', 'product.category_id')
+                    ->join('sub_category', 'sub_category.id', '=', 'product.sub_category_id')
+                    ->where('product.is_trendy', '=', 1)
+                    ->where('product.is_delete', '=', 0)
+                    ->where('product.status', '=', 0)
+                    ->groupBy('product.id')
+                    ->orderBy('product.id', 'desc')
+                    ->limit(20)
+                    ->get();
+
+        return $query;
+    }
+
+
+
+    // Retrieve product with various filters
     public static function getProduct($category_id = null, $subcategory_id = null, $product_id = null)
     {
         $query = self::select('product.*', 'users.name as created_by_name', 

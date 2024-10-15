@@ -39,12 +39,15 @@
                   <thead>
                     <tr class="btn-primary">
                       <th>#</th>
+                      <th>Image</th>
                       <th>Name</th>
                       <th>Slug</th>
                       <th>Meta Title</th>
                       <th>Meta Description</th>
                       <th>Meta Keywords</th>
                       <th>Created By</th>
+                      <th>Home</th>
+                      <th>Menu</th>
                       <th>Status</th>
                       <th>Created At</th>
                       <th>Action</th>
@@ -54,12 +57,19 @@
                   @foreach($getRecord as $value)
                   <tr>
                     <td>{{$value->id}}</td>
+                    <td>
+                        @if(!empty($value->getImage()))
+                            <img src="{{ $value->getImage() }}" style="height: 80px; width: 100px; border-radius: 20%">
+                        @endif
+                    </td>
                     <td>{{$value->name}}</td>
                     <td>{{$value->slug}}</td>
                     <td>{{$value->meta_title}}</td>
                     <td>{{$value->meta_description}}</td>
                     <td>{{$value->meta_keywords}}</td>
                     <td>{{$value->created_by_name}}</td>
+                    <td>{{ ($value->is_home == 1) ? 'yes' : 'no' }}</td>
+                    <td>{{ ($value->is_menu == 1) ? 'yes' : 'no' }}</td>
                     <td>{{ ($value->status == 0) ? "active" : "Inactive"}}</td>
                     <td>{{ date('d-m-y', strtotime($value->created_at))}}</td>
                     <td>

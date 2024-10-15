@@ -98,6 +98,18 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Trendy Products<span style="color: red;"></span></label>
+                        
+                            <div>
+                                <label><input {{ !empty($product->is_trendy) ? 'checked' : '' }} type="checkbox" name="is_trendy"></label>
+                            </div>
+
+                    </div>
+                
+                </div>
                 </div>
 
                 <!-- <hr style="border: 1px dotted blue;"> -->
@@ -132,7 +144,7 @@
 
                 <hr>
 
-                <!-- <div class="row">
+                    <!-- <div class="row">
                 <div class="col-md-6">
                         <div class="form-group">
                             <label>Old Price ($)<span style="color: red;">*</span></label>
