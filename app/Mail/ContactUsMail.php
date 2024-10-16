@@ -8,12 +8,14 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\SystemSettingModel;
 
 class ContactUsMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
+    public $setting;
 
     /**
      * Create a new message instance.
@@ -21,6 +23,7 @@ class ContactUsMail extends Mailable
     public function __construct($user)
     {
         $this->user = $user; 
+        $this->setting = SystemSettingModel::getSingle(); 
     }
 
     /**
@@ -29,7 +32,7 @@ class ContactUsMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Us',
+            subject: $this->setting->website_name.'Contact Us',
         );
     }
 

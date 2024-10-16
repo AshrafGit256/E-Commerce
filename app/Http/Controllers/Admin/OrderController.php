@@ -19,8 +19,12 @@ class OrderController extends Controller
         return view('admin.order.list', $data);
     }
 
-    public function order_detail($id)
+    public function order_detail($id, Request $request)
     {
+        if(!empty($request->notify_id))
+        {
+            NotificationModel::updateReadNotify($request->notify_id);
+        }
         $data['getRecord'] = OrderModel::getSingle($id);
         $data['header_title'] = 'Order Detail';
         return view('admin.order.detail', $data);

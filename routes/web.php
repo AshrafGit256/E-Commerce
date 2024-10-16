@@ -42,6 +42,9 @@ Route::get('user/change-password', [UserController::class, 'change_password']);
 
 Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
 
+Route::get('user/notifications', [UserController::class, 'notifications']);
+
+
 Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);
 Route::post('blog/submit_comment', [HomeController::class, 'submit_blog_comment']);
 
@@ -167,8 +170,17 @@ Route::get('admin/home-setting', [PageController::class, 'home_setting']);
 Route::post('admin/home-setting', [PageController::class, 'update_home_setting']);
 
 
+Route::get('admin/smtp-setting', [PageController::class, 'smtp_setting']);
+Route::post('admin/smtp-setting', [PageController::class, 'update_smtp_setting']);
+
+
+
 Route::get('admin/contactUs', [PageController::class, 'contactUs']);
 Route::get('admin/contactUs/delete/{id}', [PageController::class, 'contactUs_delete']);
+
+Route::get('admin/notification', [PageController::class, 'notification']);
+
+
 
 
 // Admin logout

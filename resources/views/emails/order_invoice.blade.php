@@ -1,10 +1,14 @@
 @component('mail::message')
 
+@php
+    $getSetting = App\Models\SystemSettingModel::getSingle();
+@endphp
+
 <h1 style="color: #333; font-size: 24px;">Order Invoice</h1>
 
 <p style="font-size: 16px;">Dear {{ $order->first_name }},</p>
 <p style="font-size: 16px;">
-    Thank you for your recent purchase with <strong>E-Commerce</strong>. We are pleased to confirm your order. Please find the details of your order below.
+    Thank you for your recent purchase with <strong>{{ $getSetting->website_name }}</strong>. We are pleased to confirm your order. Please find the details of your order below.
 </p>
 
 <h3 style="font-size: 18px; color: #555; margin-top: 20px;">Order Details</h3>
@@ -65,10 +69,10 @@
     If you have any questions about your order, feel free to reach us at <a href="mailto:support@example.com" style="color: #007bff;">support@example.com</a>.
 </p>
 
-<p style="font-size: 16px;">Thank you for choosing <strong>{{ config('app.name') }}</strong>!</p>
+<p style="font-size: 16px;">Thank you for choosing <strong>{{ $getSetting->website_name }}</strong>!</p>
 
 <br>
 Thanks,<br>
-<strong>{{ config('app.name') }}</strong>
+<strong>{{ $getSetting->website_name }}</strong>
 
 @endcomponent

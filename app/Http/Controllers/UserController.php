@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OrderModel;
+use App\Models\NotificationModel;
 use App\Models\User;
 use App\Models\ProductWishlistModel;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,11 @@ class UserController extends Controller
         return view('user.dashboard', $data);
     }
 
-    public function orders(){
+    public function orders(Request $request){
+        if(!empty($request->notify_id))
+        {
+            NotificationModel::updateReadNotify($request->notify_id);
+        }
         $data['getRecord'] = OrderModel::getRecordUser(Auth::user()->id);
         $data['meta_title'] = 'Orders';
         $data['meta_description'] = '';
@@ -45,6 +50,15 @@ class UserController extends Controller
         return view('user.edit_profile', $data);
     }
 
+    public function notifications(){
+        $data['meta_title'] = 'Notifications';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+        $data['getRecord'] = NotificationModel::getRecordUser(Auth::user()->id);
+
+        return view('user.notification', $data);
+    }
+    
     public function change_password(){
         $data['meta_title'] = 'Change Password';
         $data['meta_description'] = '';

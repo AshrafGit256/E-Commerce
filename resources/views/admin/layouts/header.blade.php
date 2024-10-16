@@ -1,64 +1,109 @@
-<!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light ">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      
-    </ul>
+<style>
+.notification-dropdown {
+    max-height: 300px; /* Limit the height of the dropdown */
+    overflow-y: auto; /* Enable scrolling */
+}
 
-    <!-- Right navbar links -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"> -->
-    <ul class="navbar-nav ml-auto ">
-      
-      <!-- Messages Dropdown Menu -->
-     
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+.notification-item {
+    padding: 10px; /* Add padding for better spacing */
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Vertically align content */
+}
+
+.unread {
+    font-weight: bold; /* Highlight unread messages */
+    background-color: #f8f9fa; /* Light background for unread notifications */
+}
+
+.notification-message {
+    max-width: 220px; /* Limit message width */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis if text overflows */
+}
+
+.notification-item:hover {
+    background-color: #f1f1f1; /* Add a subtle hover effect */
+}
+
+</style>
+
+  @php
+    $getSettingHeader = App\Models\SystemSettingModel::getSingle();
+  @endphp
+
+<!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        @php
+          $getUnreadNotification = App\Models\NotificationModel::getUnreadNotification();
+        @endphp
+
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            @if($getUnreadNotification->count() > 0)
+              <span class="badge badge-warning navbar-badge" style="color: black; font-weight:bold;">{{ $getUnreadNotification->count() }}</span>
+            @endif
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">
+              {{ $getUnreadNotification->count() > 0 ? $getUnreadNotification->count() . ' Notifications' : 'No new notifications' }}
+            </span>
+
+            <div class="notification-dropdown">
+              @if($getUnreadNotification->isEmpty())
+                <div class="dropdown-item text-center text-muted">
+                  No new notifications
+                </div>
+              @else
+                @foreach($getUnreadNotification as $notify)
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ $notify->url }} ? notify_id={{ $notify->id }}" class="dropdown-item d-flex align-items-start notification-item {{ $notify->is_read ? '' : 'unread' }}">
+                    <div class="fas fa-envelope mr-2"></div>
+                    <div class="notification-message">
+                      {{ $notify->message }}
+                      <div class="text-muted text-sm">
+                      {{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}
+                      </div>
+                    </div>
+                  </a>
+                @endforeach
+              @endif
+            </div>
+
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('admin/notification') }}" class="dropdown-item dropdown-footer">See All Notifications</a>
+          </div>
+        </li>
+
+        <!-- Fullscreen Button -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      
-    </ul>
-    <!-- </nav> -->
+        </li>
+      </ul>
   </nav>
-  <!-- /.navbar -->
+
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="{{ url('assets/images/icons/favicon-32x32.png') }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">E-Commerce</span>
-    </a>
+    <a href="#" class="brand-link" style="display: flex; align-items: center; padding: 10px 20px; color: white;">
+    <img src="{{ $getSettingHeader->getFavicon() }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="margin-right: 10px;">
+    <span class="brand-text font-weight-light" style="font-size: 1.2rem; font-weight: 600;">{{ $getSettingHeader->website_name}}</span>
+</a>
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -249,6 +294,15 @@
             <i class="nav-icon fas fa-home"></i>
               <p>
                 Home Setting
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/smtp-setting') }}" class="nav-link @if(Request::segment(2) == 'smtp-setting') active @endif">
+            <i class="nav-icon fas fa-server"></i>
+              <p>
+                SMTP Setting
               </p>
             </a>
           </li>

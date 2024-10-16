@@ -20,6 +20,15 @@
                 <i class="fa fa-user-edit"></i> Edit Profile
             </a>
         </li>
+        <li class="nav-item">
+            @php
+            $getUnreadNotificationCount = App\Models\NotificationModel::getUnreadNotificationCount(Auth::user()->id);
+            @endphp
+
+            <a href="{{ url('user/notifications') }}" class="nav-link @if(Request::segment(2) == 'notifications') active @endif">
+                <i class="fas fa-bell fa-shake"></i> Notifications ({{ $getUnreadNotificationCount }})
+            </a>
+        </li>
         <li class="separator"></li> <!-- Separator -->
         <li class="nav-item">
             <a href="{{ url('user/change-password') }}" class="nav-link @if(Request::segment(2) == 'change-password') active @endif">

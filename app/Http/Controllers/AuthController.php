@@ -69,7 +69,16 @@ class AuthController extends Controller
             else
             {
                 $save = User::getSingle(Auth::user()->id);
-                Mail::to($save->email)->send(new RegisterMail($save));
+
+                try
+                {
+                    Mail::to($save->email)->send(new RegisterMail($save));
+                }
+                catch (\Exception $e)
+                {
+
+                }
+               
                 Auth::logout();
                 $json['status'] = false;
                 $json['message'] = 'your account is not verified, Please check your inbox and verify';
@@ -97,9 +106,17 @@ class AuthController extends Controller
             $save->password = Hash::make($request->password);
             $save->save();
 
-            Mail::to($save->email)->send(new RegisterMail($save));
+            try
+            {
+                Mail::to($save->email)->send(new RegisterMail($save));
+            }
+            catch (\Exception $e)
+            {
 
-            $user_id = $save->id;
+            }
+            
+
+            $user_id = 1;
             $url = url('admin/customer/list');
             $message = "New Customer Registers #".$request->name;
 
@@ -150,7 +167,15 @@ class AuthController extends Controller
             $user->save();
         
             // Send the ForgotPasswordMail to the user's email
-            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            try
+            {
+                Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            }
+            catch (\Exception $e)
+            {
+
+            }
+            
         
             // Redirect back with a success message
             return redirect()->back()->with('success', "Password reset email has been sent.");

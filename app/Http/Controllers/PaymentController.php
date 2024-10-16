@@ -117,7 +117,7 @@ class PaymentController extends Controller
         ]);
 
         
-        return redirect()->back();
+        return redirect()->back()->with('success', "{$getProduct->title} Successfully Added To Cart");
     }
 
     public function update_cart(Request $request)
@@ -265,9 +265,16 @@ class PaymentController extends Controller
                     $getOrder->is_payment = 1;
                     $getOrder->save();
 
-                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                   try
+                   {
+                        Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                   }
+                   catch (\Exception $e)
+                   {
 
-                    $user_id = $getOrder->user_id;
+                   }
+
+                    $user_id = 1;
                     $url = url('admin/order/detail/'.$getOrder->id);
                     $message = "New Order Placed #".$getOrder->order_number;
 

@@ -8,12 +8,22 @@ use App\Models\PageModel;
 use App\Models\SystemSettingModel;
 use App\Models\ContactUsModel;
 use App\Models\HomeSettingModel;
+use App\Models\NotificationModel;
+use App\Models\SMTPModel;
 use Database\Seeders\SystemSettingSeeder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
+    
+    public function notification()
+    {
+        $data['getRecord'] = NotificationModel::getRecord();
+        $data['header_title'] = 'Notifications';
+        return view('admin.notification.list', $data);
+    }
+
     public function contactUs()
     {
         $data['getRecord'] = ContactUsModel::getRecord();
@@ -198,4 +208,29 @@ class PageController extends Controller
 
         return redirect()->back()->with('success', "Home Setting Successfully Updated");
     }
+    
+    public function smtp_setting()
+    {
+        $data['getRecord'] = SMTPModel::getSingle();
+        $data['header_title'] = 'SMTP Setting';
+        return view('admin.setting.smtp_setting', $data);
+    }
+
+    public function update_smtp_setting(Request $request)
+    {
+        $save = SMTPModel::getSingle();
+        $save->name = trim($request->name);
+        $save->mail_mailer = trim($request->mail_mailer);
+        $save->mail_host = trim($request->mail_host);
+        $save->mail_port = trim($request->mail_port);
+        $save->mail_username = trim($request->mail_username);
+        $save->mail_password = trim($request->mail_password);
+        $save->mail_encryption = trim($request->mail_encryption);
+        $save->mail_from_address = trim($request->mail_from_address);
+        
+        $save->save();
+
+        return redirect()->back()->with('success', "SMTP Setting Successfully Updated");
+    }
+    
 }

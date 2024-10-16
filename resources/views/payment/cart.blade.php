@@ -69,7 +69,30 @@
 															</figure>
 
 															<h3 class="product-title">
-																<a href="{{ url($getCartProduct->slug) }}">{{ $getCartProduct->title }}</a>
+																<a style="margin-bottom: 10px; display: block;" href="{{ url($getCartProduct->slug) }}">{{ $getCartProduct->title }}</a>
+																
+																@php
+																	$color_id =  $cart->attributes->color_id;
+																@endphp
+																@if(!empty($color_id))
+																@php
+																	$getColor = App\Models\ColorModel::getSingle($color_id);
+																@endphp
+																	<div><b>Color:</b> {{ $getColor->name}} </div>
+																@endif
+
+
+																@php
+																	$size_id = $cart->attributes->size_id;
+																@endphp
+																@if(!empty($size_id))
+																@php
+																	$getSize = App\Models\ProductSizeModel::getSingle($size_id);
+																@endphp
+																	<div><b>Size:</b> {{ $getSize->name}} (${{ number_format($getSize->price) }})</div>
+																@endif
+
+																
 															</h3><!-- End .product-title -->
 														</div><!-- End .product -->
 													</td>

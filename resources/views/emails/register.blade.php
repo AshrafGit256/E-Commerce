@@ -1,8 +1,10 @@
 @component('mail::message')
 
 Hi <b>{{ $user->name }}</b>,
-
-<p>You are most welcome to our Electronic Mail Trading services!</p>
+@php
+    $getSetting = App\Models\SystemSettingModel::getSingle();
+@endphp
+<p>You are most welcome thank you for choosing <strong>{{ $getSetting->website_name }}</strong> </p>
 
 <p>Simply click the button below to verify your email address.</p>
 
@@ -12,9 +14,9 @@ Verify
 @endcomponent
 </p>
 
-<p>This will verify your email address, and then you will officially be part of the E-Commerce platform.</p>
+<p>This will verify your email address, and then you will officially be part of the <strong>{{ $getSetting->website_name }}</strong> online platform.</p>
 
-<!-- Thanks,<br>
-{{ config('app.name') }} -->
+Thanks,<br>
+<strong>{{ $getSetting->website_name }}</strong>
 
 @endcomponent
