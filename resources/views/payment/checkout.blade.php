@@ -8,12 +8,12 @@
 
 <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-        		<div class="container">
+        		<div class="container-fluid">
         			<h1 class="page-title">Checkout<span>Shop</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                <div class="container">
+                <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Shop</a></li>
@@ -24,7 +24,7 @@
 
             <div class="page-content">
             	<div class="checkout">
-	                <div class="container">
+	                <div class="container-fluid">
             			<form action="" id="SubmitForm" method="post">
 							{{ csrf_field() }}
 		                	<div class="row">

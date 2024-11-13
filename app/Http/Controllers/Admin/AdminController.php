@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\NotificationModel;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -14,8 +15,10 @@ class AdminController extends Controller
     {
         $data['getRecord'] = User::getAdmin();
         $data['header_title'] = 'Admin';
-        return view('admin.admin.list' ,$data);
+        $data['latestUsers'] = User::orderBy('id', 'desc')->take(3)->get(); // Fetch latest 3 users
+        return view('admin.admin.list', $data);
     }
+
 
     public function add()
     {
@@ -35,6 +38,17 @@ class AdminController extends Controller
         $user->password = Hash::make($request->password);
         $user->status = 0;
         $user->is_admin = 1; 
+
+        if(!empty($request->file('image_name')))
+        {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move(public_path('upload/user/'), $filename);
+            $user->image_name = trim($filename);
+        }
+        
         $user->save();
 
         return redirect('admin/admin/list')->with('Success', "Admin Successfully created");
@@ -61,6 +75,17 @@ class AdminController extends Controller
         {
             $user->password = Hash::make($request->password);
         }
+
+        if(!empty($request->file('image_name')))
+        {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move(public_path('upload/user/'), $filename);
+            $user->image_name = trim($filename);
+        }
+
         $user->status = $request->status;
         $user->is_admin = 1; 
         $user->save();

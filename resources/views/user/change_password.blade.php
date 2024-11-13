@@ -13,7 +13,7 @@
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6);"></div>
 
     <!-- Text container on top of the overlay -->
-    <div class="container" style="position: relative; z-index: 1;">
+    <div class="container-fluid" style="position: relative; z-index: 1;">
         <h1 class="page-title" style="color: white;">Change Password</h1>
     </div><!-- End .container -->
     
@@ -22,7 +22,7 @@
 
             <div class="page-content">
             	<div class="dashboard">
-	                <div class="container">
+	                <div class="container-fluid">
                         <br/>
 	                	<div class="row">
                             @include('user._sidebar')

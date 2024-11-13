@@ -58,14 +58,14 @@
 <main class="main">
     <div class="page-header text-center" style="position: relative; background-image: url('/assets/images/about-header-bg.jpg'); background-size: cover; background-position: center; height: 150px;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6);"></div>
-        <div class="container" style="position: relative; z-index: 1;">
+        <div class="container-fluid" style="position: relative; z-index: 1;">
             <h1 class="page-title" style="color: white;">Dashboard</h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
 
     <div class="page-content">
         <div class="dashboard">
-            <div class="container">
+            <div class="container-fluid">
                 <br/>
                 <div class="row">
                     @include('user._sidebar')

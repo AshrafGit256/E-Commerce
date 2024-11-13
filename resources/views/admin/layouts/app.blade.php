@@ -10,7 +10,7 @@
   <title>{{ !empty($header_title) ? $header_title : ''}} - {{ $getSettingHeader->website_name}}</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="shortcut icon" href="{{ $getSettingHeader->getFavicon() }}">
+  <link rel="shortcut icon" href="{{ $getSettingHeader->getFavicon() }}" style="border-radius: 50%;">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css')}}">

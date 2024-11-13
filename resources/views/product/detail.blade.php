@@ -8,7 +8,7 @@
 
 <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container d-flex align-items-center">
+                <div class="container-fluid d-flex align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ url($getProduct-> getCategory->slug) }}">{{ $getProduct-> getCategory->name }}</a></li>
@@ -21,7 +21,7 @@
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="product-details-top mb-2">
                         <div class="row">
                             <div class="col-md-6">
@@ -152,7 +152,7 @@
                 </div><!-- End .container -->
 
                 <div class="product-details-tab product-details-extended">
-                    <div class="container">
+                    <div class="container-fluid">
                         <ul class="nav nav-pills justify-content-center" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
@@ -172,28 +172,28 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                         <div class="product-desc-content">
-                                <div class="container" style="margin-top: 20px;">
+                                <div class="container-fluid" style="margin-top: 20px;">
                                     {!! $getProduct->description !!}
                                 </div><!-- End .container -->
                             </div><!-- End .product-desc-content -->
                         </div><!-- .End .tab-pane -->
                         <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
                             <div class="product-desc-content">
-                                <div class="container" style="margin-top: 20px;">
+                                <div class="container-fluid" style="margin-top: 20px;">
                                 {!! $getProduct->additional_information !!}
                                 </div><!-- End .container -->
                             </div><!-- End .product-desc-content -->
                         </div><!-- .End .tab-pane -->
                         <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
                             <div class="product-desc-content">
-                                <div class="container" style="margin-top: 20px;">
+                                <div class="container-fluid" style="margin-top: 20px;">
                                 {!! $getProduct->shipping_returns }
                                 </div><!-- End .container -->
                             </div><!-- End .product-desc-content -->
                         </div><!-- .End .tab-pane -->
                         <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                             <div class="reviews">
-                                <div class="container" style="margin-top: 20px;">
+                                <div class="container-fluid" style="margin-top: 20px;">
                                     <h3>Reviews (2)</h3>
                                     <div class="review">
                                         <div class="row no-gutters">
@@ -253,7 +253,7 @@
                     </div><!-- End .tab-content -->
                 </div><!-- End .product-details-tab -->
 
-                <div class="container">
+                <div class="container-fluid">
                     <h2 class="title text-center mb-4" style="font-size: 38px;">You May Also Like</h2>
                     <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{

@@ -31,9 +31,13 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="post">
+              <form action="" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card-body">
+                  <div class="form-group">
+                    <label>Profile Pic <span style="color: red;">*</span></label>
+                    <input type="file" name="image_name" required class="form-control" >
+                  </div>
                   <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter Name">

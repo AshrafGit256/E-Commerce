@@ -26,7 +26,19 @@
     background-color: #f1f1f1; /* Add a subtle hover effect */
 }
 
+.user-name {
+    font-family: 'Lora', serif;
+    font-size: 1.2em; /* Adjust size as needed */
+    font-weight: bold;
+    color: #333; /* Dark color for professional look */
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
 </style>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Lora:wght@700&display=swap" rel="stylesheet">
+
 
   @php
     $getSettingHeader = App\Models\SystemSettingModel::getSingle();
@@ -100,7 +112,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="#" class="brand-link" style="display: flex; align-items: center; padding: 10px 20px; color: white;">
-    <img src="{{ $getSettingHeader->getFavicon() }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="margin-right: 10px;">
+    <img src="{{ $getSettingHeader->getFavicon() }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="margin-right: 10px; border-radius: 50%">
     <span class="brand-text font-weight-light" style="font-size: 1.2rem; font-weight: 600;">{{ $getSettingHeader->website_name}}</span>
 </a>
 
@@ -108,15 +120,20 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      
+
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ url('assets/images/about/ProfilePic1.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a class="d-block">{{ Auth::User()->name }}</a>
-        </div>
+          <div class="image">
+              @if(!empty(Auth::user()->getImage()))
+                  <img src="{{ Auth::user()->getImage() }}" class="img-circle elevation-2" alt="User Image" style="height: 60px; width: 60px; border-radius: 20%">
+              @else
+                  <img src="{{ asset('upload/user/h2.jpg') }}" class="img-circle elevation-2" alt="Default User Image" style="height: 60px; width: 60px; border-radius: 20%">
+              @endif
+          </div>
+          <div class="info">
+              <a class="d-block user-name">{{ Auth::user()->name }}</a>
+          </div>
       </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">

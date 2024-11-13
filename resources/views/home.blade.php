@@ -3,8 +3,8 @@
 @section('content')
 
         <main class="main">
-            <div class="intro-section bg-lighter pt-2 pb-6">
-                <div class="container">
+            <div class="intro-section bg-lighter pt-5 pb-6">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
@@ -42,6 +42,34 @@
                                             </div><!-- End .intro-slide -->
                                         @endif
                                     @endforeach
+
+                                    <div class="col-md-6 col-lg-12">
+                                        <div class="banner banner-display">
+                                            <a href="#">
+                                                <img src="assets/images/banners/home/intro/banner-1.jpg" alt="Banner">
+                                            </a>
+
+                                            <div class="banner-content">
+                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a></h4><!-- End .banner-subtitle -->
+                                                <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up to 40% off</a></h3><!-- End .banner-title -->
+                                                <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                                            </div><!-- End .banner-content -->
+                                        </div><!-- End .banner -->
+                                    </div><!-- End .col-md-6 col-lg-12 -->
+
+                                    <div class="col-md-6 col-lg-12">
+                                        <div class="banner banner-display mb-0">
+                                            <a href="#">
+                                                <img src="assets/images/banners/home/intro/banner-2.jpg" alt="Banner">
+                                            </a>
+
+                                            <div class="banner-content">
+                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4><!-- End .banner-subtitle -->
+                                                <h3 class="banner-title text-white"><a href="#">Best Lighting <br>Collection</a></h3><!-- End .banner-title -->
+                                                <a href="#" class="btn btn-outline-white banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
+                                            </div><!-- End .banner-content -->
+                                        </div><!-- End .banner -->
+                                    </div><!-- End .col-md-6 col-lg-12 -->
 
                                 </div><!-- End .intro-slider owl-carousel owl-simple -->
                                 
@@ -94,7 +122,7 @@
             <div class="mb-6"></div><!-- End .mb-6 -->
             
             @if(!empty($getProductTrendy->count()))
-                <div class="container">
+                <div class="container-fluid">
                     <div class="heading heading-center mb-3">
                     <h2 class="title-lg" style="font-family: 'Arial, sans-serif'; font-size: 44px; font-weight: bold; color: #555555; letter-spacing: 1px;">
                         {{ !empty($getHomeSetting->trendy_product_title) ? $getHomeSetting->trendy_product_title : 'Trendy Products'}}
@@ -189,7 +217,7 @@
             @endif
 
             @if(!empty($getCategory->count()))
-    		<div class="container categories pt-6">
+    		<div class="container-fluid categories pt-6">
         		<h2 class="title-lg text-center mb-4">{{ !empty($getHomeSetting->shop_by_category_title) ? $getHomeSetting->shop_by_category_title : 'Shop by Categories'}}</h2><!-- End .title-lg text-center -->
 
         		<div class="row">
@@ -219,7 +247,7 @@
 
             @endif
             
-            <div class="container">
+            <div class="container-fluid">
                 <div class="heading heading-center mb-6">
                     <h2 class="title">{{ !empty($getHomeSetting->recent_arrival_title) ? $getHomeSetting->recent_arrival_title : 'Recent Arrivals'}}</h2><!-- End .title -->
 
@@ -261,7 +289,7 @@
                
             </div><!-- End .container -->
 
-            <div class="container">
+            <div class="container-fluid">
                 <hr>
             	<div class="row justify-content-center">
                     @if(!empty($getHomeSetting->payment_delivery_title))
@@ -319,7 +347,7 @@
             
             @if(!empty($getBlog->count()))
             <div class="blog-posts pt-7 pb-7" style="background-color: #fafafa;">
-                <div class="container">
+                <div class="container-fluid">
                    <h2 class="title-lg text-center mb-3 mb-md-4">{{ !empty($getHomeSetting->blog_title) ? $getHomeSetting->blog_title : 'Our Blog'}}</h2><!-- End .title-lg text-center -->
 
                     <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" 
@@ -377,7 +405,7 @@
 
             @if(!empty($getHomeSetting->signup_title))
             <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url('{{ $getHomeSetting->getSignupImage() }}');">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-9 col-xl-8">
                             <div class="row no-gutters flex-column flex-sm-row align-items-sm-center">

@@ -31,9 +31,16 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="post">
+              <form action="" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card-body">
+                  <div class="form-group">
+                    <label>Image <span style="color: red;"></span></label>
+                    <input type="file" name="image_name" class="form-control" >
+                    @if(!empty($getRecord->getImage()))
+                        <img src="{{ $getRecord->getImage() }}" style="height: 100px;">
+                    @endif
+                  </div>
                   <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" value="{{ old('name', $getRecord->name) }}" required placeholder="Enter Name">

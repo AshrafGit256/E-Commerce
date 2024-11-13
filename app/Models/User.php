@@ -140,5 +140,17 @@ class User extends Authenticatable
                        -> where('email', '=', $email)
                        ->first();
     }
+
+    public function getImage()
+    {
+        if(!empty($this->image_name) && file_exists('upload/user/' .$this->image_name))
+        {
+            return url('upload/user/' .$this->image_name);
+        }
+        else
+        {
+            return "";
+        }
+    }
 }
 

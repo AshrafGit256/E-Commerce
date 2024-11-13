@@ -3,14 +3,14 @@
 @section('content')
 <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container">
+                <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $getPage->title }}</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
-            <div class="container">
+            <div class="container-fluid">
 	        	<div class="page-header page-header-big text-center" style="background-image: url('{{ $getPage->getImage() }}')">
                 <h1 class="page-title text-white">
                     <i class="fas fa-envelope"></i> {{ $getPage->title }}
@@ -21,7 +21,7 @@
             </div><!-- End .container -->
 
             <div class="page-content pb-0">
-                <div class="container">
+                <div class="container-fluid">
                 	<div class="row">
                 		<div class="col-lg-6 mb-2 mb-lg-0">
 						{!! $getPage->description !!}

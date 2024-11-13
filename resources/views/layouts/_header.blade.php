@@ -1,6 +1,6 @@
 <header class="header">
             <div class="header-top">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="header-left">
                         <!-- <div class="header-dropdown">
                             <a href="#">Usd</a>
@@ -48,16 +48,25 @@
             </div>
 
             <div class="header-middle sticky-header">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="header-left">
                         <button class="mobile-menu-toggler">
                             <span class="sr-only">Toggle mobile menu</span>
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="{{ url('') }}" class="logo">
-                            <img src="{{ $getSystemSettingApp->getLogo() }}" alt="E-Commerce" width="105" height="25">
+                        <!-- Modal structure -->
+                        <div id="logoModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center;">
+                            <span class="close" onclick="closeModal()" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 30px; cursor: pointer;">&times;</span>
+                            <img id="modalImage" style="max-width: 90%; max-height: 90%; border-radius: 8px;">
+                        </div>
+
+
+                        <a href="javascript:void(0);" class="logo" onclick="openModal('{{ $getSystemSettingApp->getLogo() }}')">
+                            <img src="{{ $getSystemSettingApp->getLogo() }}" alt="E-Commerce" width="70" height="70" style="border-radius: 50%;">
                         </a>
+
+
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
@@ -125,6 +134,7 @@
                             </ul>
                         </nav>
                     </div>
+
 
                     <div class="header-right">
                         <div class="header-search">
@@ -195,3 +205,14 @@
                 </div>
             </div>
         </header>
+
+        <script>
+            function openModal(imageUrl) {
+                document.getElementById("modalImage").src = imageUrl;
+                document.getElementById("logoModal").style.display = "flex";
+            }
+
+            function closeModal() {
+                document.getElementById("logoModal").style.display = "none";
+            }
+        </script>

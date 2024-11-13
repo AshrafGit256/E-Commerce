@@ -13,7 +13,7 @@
 
 <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-        		<div class="container">
+        		<div class="container-fluid">
                     @if(!empty($getSubCategory))
                         <h1 class="page-title">{{ $getSubCategory->name }}</h1>
                     @elseif(!empty($getCategory))
@@ -25,7 +25,7 @@
         		</div>
         	</div>
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
-                <div class="container">
+                <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Shop</a></li>
@@ -41,7 +41,7 @@
             </nav>
 
             <div class="page-content">
-                <div class="container">
+                <div class="container-fluid">
                 	<div class="row">
                 		<div class="col-lg-9">
                 			<div class="toolbox">

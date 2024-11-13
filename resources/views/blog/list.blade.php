@@ -4,12 +4,12 @@
 
 <main class="main">
         	<div class="page-header text-center" style="background-image: url('{{ $getPage->getImage() }}')">
-        		<div class="container">
+        		<div class="container-fluid">
         			<h1 class="page-title">{{ $getPage->title }}</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
-                <div class="container">
+                <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
                         <li class="breadcrumb-item active"><a href="{{ url('blog') }}">Blog</a></li>
@@ -18,7 +18,7 @@
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-                <div class="container">
+                <div class="container-fluid">
                 	<div class="row">
                 		<div class="col-lg-9">
                             <div class="entry-container max-col-2" data-layout="fitRows">

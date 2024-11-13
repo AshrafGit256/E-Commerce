@@ -3,14 +3,14 @@
 @section('content')
 <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container">
+                <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $getPage->title }}</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
-            <div class="container">
+            <div class="container-fluid">
 	        	<div class="page-header page-header-big text-center" style="background-image: url('{{ $getPage->getImage() }}')">
                 <h1 class="page-title text-white">
                     <i class="fas fa-info-circle"></i> {{ $getPage->title }}
@@ -21,7 +21,7 @@
             </div><!-- End .container -->
 
             <div class="page-content pb-0">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 mb-3 mb-lg-0">
                             {!! $getPage->description !!}
@@ -34,7 +34,7 @@
                 </div><!-- End .container -->
 
                 <div class="bg-light-2 pt-6 pb-5 mb-6 mb-lg-8">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-5 mb-3 mb-lg-0">
                                 <h2 class="title">Who We Are</h2><!-- End .title -->
@@ -57,7 +57,7 @@
                     </div><!-- End .container -->
                 </div><!-- End .bg-light-2 pt-6 pb-6 -->
 
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-5">
                             <div class="brands-text">
@@ -205,7 +205,7 @@
                 <div class="mb-2"></div><!-- End .mb-2 -->
 
                 <div class="about-testimonials bg-light-2 pt-6 pb-6">
-                    <div class="container">
+                    <div class="container-fluid">
                         <h2 class="title text-center mb-3">What Customer Say About Us</h2><!-- End .title text-center -->
 
                         <div class="owl-carousel owl-simple owl-testimonials-photo" data-toggle="owl" 

@@ -74,7 +74,7 @@
     <!-- Page Content -->
     <div class="page-content">
         <div class="dashboard">
-            <div class="container">
+            <div class="container-fluid">
                 <br/>
                 <div class="row">
                     @include('user._sidebar')

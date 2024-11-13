@@ -4,14 +4,14 @@
 
 <main class="main">
     <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg'); background-size: cover; background-position: center; padding: 60px 0;">
-        <div class="container">
+        <div class="container-fluid">
             <h1 class="page-title" style="font-size: 42px; font-weight: 700; color: #fff; letter-spacing: 2px;">{{ $getBlog->title }}</h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
 
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
-        <div class="container">
+        <div class="container-fluid">
             @include('admin.layouts._message')
             <ol class="breadcrumb" style="background-color: #f1f1f1; padding: 15px; border-radius: 5px;">
                 <li class="breadcrumb-item"><a href="{{ url('') }}" style="color: #555;">Home</a></li>
@@ -22,7 +22,7 @@
     </nav><!-- End .breadcrumb-nav -->
 
     <div class="page-content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9">
                     <!-- Blog Article -->
