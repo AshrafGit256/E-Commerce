@@ -117,7 +117,7 @@
                                             </td>
                                             <td>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }}</td>
                                             <td>
-                                                <a href="{{ url('admin/order/detail/'.$value->id) }}" class="btn btn-success">
+                                                <a href="{{ url('user/orders/detail/'.$value->id) }}" class="btn btn-success">
                                                     <i class="fas fa-eye"></i> Details
                                                 </a>
                                             </td>

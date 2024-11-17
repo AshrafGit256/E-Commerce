@@ -16,15 +16,12 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!empty(Auth::check())) 
-        {
+        // Check if the user is authenticated
+        if (Auth::check()) {
             return $next($request);
         }
-        else
-        {
-            Auth::logout();
-            return redirect(url(''));
-        }
-    
+
+        // Redirect unauthenticated users with an optional flash message
+        return redirect(url(''))->with('error', 'You must be logged in to access this page.');
     }
 }

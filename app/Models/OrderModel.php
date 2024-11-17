@@ -142,6 +142,16 @@ class OrderModel extends Model
                   ->paginate(20);
     }
 
+    static public function getSingleUser($user_id, $id)
+    {
+        return OrderModel::select('orders.*')
+                  ->where('user_id', '=', $user_id)
+                  ->where('id', '=', $id)
+                  ->where('is_payment', '=', 1)
+                  ->where('is_delete', '=', 0)
+                  ->first();
+    }
+
     static public function getRecord()
     {
         $return = OrderModel::select('orders.*');

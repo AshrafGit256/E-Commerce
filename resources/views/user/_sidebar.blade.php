@@ -1,8 +1,8 @@
-<aside class="col-md-4 col-lg-3">
+<aside class="col-md-4 col-lg-3 mt-0">
     <div class="sidebar-header">
         <h4>User Menu</h4>
     </div>
-    <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <ul class="nav nav-dashboard flex-column mt-3 mb-md-0" role="tablist">
         <li class="nav-item">
             <a href="{{ url('user/dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                 <i class="fa fa-tachometer-alt"></i> Dashboard

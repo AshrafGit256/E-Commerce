@@ -42,6 +42,21 @@ class UserController extends Controller
         return view('user.orders', $data);
     }
 
+    public function orders_detail($id){
+        $data['getRecord'] = OrderModel::getSingleUser(Auth::user()->id, $id);
+        if(!empty($data['getRecord']))
+        {
+            $data['mete_title'] = 'Order Detail';
+            $data['meta_description'] = '';
+            $data['meta_keywords'] = '';
+            return view('user.orders_detail', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
     public function edit_profile(){
         $data['meta_title'] = 'Edit Profile';
         $data['meta_description'] = '';
