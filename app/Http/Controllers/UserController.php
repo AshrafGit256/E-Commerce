@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
         $data['meta_title'] = 'Dashboard';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
@@ -29,9 +30,9 @@ class UserController extends Controller
         return view('user.dashboard', $data);
     }
 
-    public function orders(Request $request){
-        if(!empty($request->notify_id))
-        {
+    public function orders(Request $request)
+    {
+        if (!empty($request->notify_id)) {
             NotificationModel::updateReadNotify($request->notify_id);
         }
         $data['getRecord'] = OrderModel::getRecordUser(Auth::user()->id);
@@ -42,30 +43,49 @@ class UserController extends Controller
         return view('user.orders', $data);
     }
 
-    public function orders_detail($id){
+    public function orders_detail($id)
+    {
         $data['getRecord'] = OrderModel::getSingleUser(Auth::user()->id, $id);
-        if(!empty($data['getRecord']))
-        {
+        if (!empty($data['getRecord'])) {
             $data['mete_title'] = 'Order Detail';
             $data['meta_description'] = '';
             $data['meta_keywords'] = '';
             return view('user.orders_detail', $data);
-        }
-        else
-        {
+        } else {
             abort(404);
         }
     }
 
-    public function edit_profile(){
+    public function edit_profile()
+    {
         $data['meta_title'] = 'Edit Profile';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
+        $data['getRecord'] = User::getSingle(Auth::user()->id);
 
         return view('user.edit_profile', $data);
     }
 
-    public function notifications(){
+    public function update_profile(Request $request)
+    {
+        $user = User::getSingle(Auth::user()->id);
+        $user->name = trim($request->first_name);
+        $user->last_name = trim($request->last_name);
+        $user->company_name = trim($request->company_name);
+        $user->country = trim($request->country);
+        $user->address_one = trim($request->address_one);
+        $user->address_two = trim($request->address_two);
+        $user->city = trim($request->city);
+        $user->state = trim($request->state);
+        $user->postcode = trim($request->postcode);
+        $user->phone = trim($request->phone);
+        $user->save();
+
+        return redirect()->back()->with('success', "Profile successfully updated");
+    }
+
+    public function notifications()
+    {
         $data['meta_title'] = 'Notifications';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
@@ -73,8 +93,9 @@ class UserController extends Controller
 
         return view('user.notification', $data);
     }
-    
-    public function change_password(){
+
+    public function change_password()
+    {
         $data['meta_title'] = 'Change Password';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
@@ -85,17 +106,14 @@ class UserController extends Controller
     public function add_to_wishlist(Request $request)
     {
         $check = ProductWishlistModel::checkAlready($request->product_id, Auth::user()->id);
-        if(empty($check))
-        {
+        if (empty($check)) {
             $save = new ProductWishlistModel;
             $save->product_id = $request->product_id;
             $save->user_id = Auth::user()->id;
             $save->save();
 
             $json['is_wishlist'] = 1;
-        }
-        else
-        {
+        } else {
             ProductWishlistModel::DeleteRecord($request->product_id, Auth::user()->id);
             $json['is_wishlist'] = 0;
         }
@@ -103,5 +121,4 @@ class UserController extends Controller
         $json['status'] = true;
         echo json_encode($json);
     }
-
 }

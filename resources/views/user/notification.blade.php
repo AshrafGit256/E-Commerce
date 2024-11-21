@@ -23,15 +23,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.4);
             z-index: 0;
         }
 
         .page-header h1 {
             position: relative;
-            z-index: 1;
+            z-index: 100;
             font-size: 36px;
             font-weight: bold;
+            color: #f9f9f9;
         }
 
         .table-striped tbody tr:nth-of-type(odd) {
