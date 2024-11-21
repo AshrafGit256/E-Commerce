@@ -138,7 +138,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
 
     <!-- Brand Logo -->
     <a href="#" class="brand-link" style="display: flex; align-items: center; padding: 10px 20px; color: white;">
-      <img src="{{ $getSettingHeader->getFavicon() }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="margin-right: 10px; border-radius: 50%">
+      <img src="{{ $getSettingHeader->getFavicon() }}" alt="AdminLTE Logo" class="brand-image img-square elevation-3" style="margin-right: 10px;">
       <span class="brand-text font-weight-light" style="font-size: 1.2rem; font-weight: 600;">{{ $getSettingHeader->website_name}}</span>
     </a>
 

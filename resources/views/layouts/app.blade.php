@@ -35,11 +35,6 @@
 
     @yield('style')
 
-    <style type="text/css">
-        .btn-wishlist-add::after {
-            content: '\f233' !important;
-        }
-    </style>
 </head>
 
 <body>

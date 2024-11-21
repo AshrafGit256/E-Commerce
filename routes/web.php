@@ -42,6 +42,7 @@ Route::get('user/edit-profile', [UserController::class, 'edit_profile']);
 Route::post('user/edit-profile', [UserController::class, 'update_profile']);
 
 Route::get('user/change-password', [UserController::class, 'change_password']);
+Route::post('user/change-password', [UserController::class, 'update_password']);
 
 Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
 

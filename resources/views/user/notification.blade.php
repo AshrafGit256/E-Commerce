@@ -48,6 +48,11 @@
             vertical-align: middle;
         }
 
+        .notification-icon {
+            margin-right: 10px;
+            color: #d2b48c;
+        }
+
         .btn-success {
             display: inline-flex;
             align-items: center;

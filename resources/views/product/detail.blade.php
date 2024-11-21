@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('style')
-    <link rel="stylesheet" href="{{ url('assets/css/plugins/nouislider/nouislider.css') }}"
+    <link rel="stylesheet" href="{{ url('assets/css/plugins/nouislider/nouislider.css') }}">
 @endsection
 
 @section('content')
@@ -32,7 +32,7 @@
                                     @endphp
                                         
                                     @if(!empty($getProductImage) && !empty($getProductImage->get_image()))
-                                        <img id="product-zoom" src="{{ $getProductImage->get_image() }}" data-zoom-image="{{ $getProductImage->get_image() }}" alt="product image">
+                                        <img id="product-zoom" style="width: 600px; height: 700px; border-radius:20px;" src="{{ $getProductImage->get_image() }}" data-zoom-image="{{ $getProductImage->get_image() }}" alt="product image">
 
                                         <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                             <i class="icon-arrows"></i>
@@ -42,8 +42,8 @@
 
                                     <div id="product-zoom-gallery" class="product-image-gallery">
                                         @foreach($getProduct->getImage as $image)
-                                        <a class="product-gallery-item" href="#" data-image="{{ $image-> get_image() }}" data-zoom-image="{{ $image-> get_image() }}">
-                                            <img src="{{ $image-> get_image() }}" alt="product side">
+                                        <a class="product-gallery-item" style="width: 124px; height: 134px; margin-right: -70px;" href="#" data-image="{{ $image-> get_image() }}" data-zoom-image="{{ $image-> get_image() }}">
+                                            <img src="{{ $image-> get_image() }}" style="width: 120px; height: 130px; border-radius:20px;" alt="product side">
                                         </a>
                                         @endforeach
                                     </div><!-- End .product-image-gallery -->

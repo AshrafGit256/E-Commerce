@@ -138,7 +138,7 @@
 
                 	<hr class="mt-4 mb-5">
 
-                	<!-- <div class="stores mb-4 mb-lg-5">
+                	<div class="stores mb-4 mb-lg-5">
 	                	<h2 class="title text-center mb-3">Our Stores</h2>
 
 	                	<div class="row">
@@ -194,7 +194,7 @@
 	                			</div>
 	                		</div>
 	                	</div>
-                	</div> -->
+                	</div>
                 </div>
             	<!-- <div id="map"></div> -->
             </div>
