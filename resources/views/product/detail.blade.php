@@ -59,7 +59,7 @@
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
-                                        <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( {{ $getProduct->getTotalReview() }} Reviews )</a>
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
@@ -164,7 +164,7 @@
                                 <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
+                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews ({{ $getProduct->getTotalReview() }})</a>
                             </li>
                         </ul>
                     </div><!-- End .container -->
@@ -187,66 +187,39 @@
                         <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
                             <div class="product-desc-content">
                                 <div class="container-fluid" style="margin-top: 20px;">
-                                {!! $getProduct->shipping_returns }
+                                {!! $getProduct->shipping_returns !!}
                                 </div><!-- End .container -->
                             </div><!-- End .product-desc-content -->
                         </div><!-- .End .tab-pane -->
                         <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                             <div class="reviews">
                                 <div class="container-fluid" style="margin-top: 20px;">
-                                    <h3>Reviews (2)</h3>
+                                    <h3>Reviews ({{ $getProduct->getTotalReview() }})</h3>
+
+                                    @foreach($getReviewProduct as $review)
                                     <div class="review">
                                         <div class="row no-gutters">
+                                            
                                             <div class="col-auto">
-                                                <h4><a href="#">Samanta J.</a></h4>
+                                                <h4><a href="#">{{ $review->name }}</a></h4>
                                                 <div class="ratings-container">
                                                     <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">6 days ago</span>
-                                            </div><!-- End .col -->
+                                                        <div class="ratings-val" style="width: {{ $review->getPercent() }}%;"></div>
+                                                    </div>
+                                                </div>
+                                                <span class="review-date">{{ Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
+                                            </div>
+                                            
+
                                             <div class="col">
-                                                <h4>Good, perfect size</h4>
-
-                                                <div class="review-content">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!</p>
-                                                </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
+                                                <h4>{{ $review->review }}</h4> 
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
                                     </div><!-- End .review -->
+                                    @endforeach
 
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">John Doe</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">5 days ago</span>
-                                            </div><!-- End .col -->
-                                            <div class="col">
-                                                <h4>Very good</h4>
+                                    {!! $getReviewProduct->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
 
-                                                <div class="review-content">
-                                                    <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum blanditiis laudantium iste amet. Cum non voluptate eos enim, ab cumque nam, modi, quas iure illum repellendus, blanditiis perspiciatis beatae!</p>
-                                                </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
-                                                
-                                            </div><!-- End .col-auto -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .review -->
                                 </div><!-- End .container -->
                             </div><!-- End .reviews -->
                         </div><!-- .End .tab-pane -->
@@ -319,9 +292,9 @@
                                 </div><!-- End .product-price -->
                                 <div class="ratings-container">
                                     <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                                        <div class="ratings-val" style="width: {{ $review->getPercent() }}%;"></div><!-- End .ratings-val -->
                                     </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 2 Reviews )</span>
+                                    <span class="ratings-text">( ({{ $getProduct->getTotalReview() }}) Reviews )</span>
                                 </div><!-- End .rating-container -->
 
                             </div><!-- End .product-body -->
