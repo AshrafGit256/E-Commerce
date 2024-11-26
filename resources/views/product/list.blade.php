@@ -136,7 +136,7 @@
         						<div class="widget widget-collapsible">
     								<h3 class="widget-title">
 									    <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
-									        Colour
+									        Color
 									    </a>
 									</h3><!-- End .widget-title -->
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use App\Models\NotificationModel;
 use App\Models\User;
+use App\Models\ProductReviewModel;
 use App\Models\ProductWishlistModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -104,25 +105,20 @@ class UserController extends Controller
         return view('user.change_password', $data);
     }
 
-    public function update_password(Request $request){
+    public function update_password(Request $request)
+    {
         $user = User::getSingle(Auth::user()->id);
-        if(Hash::check($request->old_password, $user->password))
-        {
+        if (Hash::check($request->old_password, $user->password)) {
 
-            if($request->password == $request->cpassword)
-            {
+            if ($request->password == $request->cpassword) {
                 $user->password = Hash::make($request->password);
                 $user->save();
 
                 return redirect()->back()->with('success', "Password successfully updated");
-            }
-            else
-            {
+            } else {
                 return redirect()->back()->with('error', "New password and confirm password don't match");
             }
-        }
-        else
-        {
+        } else {
             return redirect()->back()->with('error', "Old password was not found");
         }
     }
@@ -144,5 +140,18 @@ class UserController extends Controller
 
         $json['status'] = true;
         echo json_encode($json);
+    }
+
+    public function submit_review(Request $request)
+    {
+        $save = new ProductReviewModel;
+        $save->product_id = trim($request->product_id);
+        $save->order_id = trim($request->order_id);
+        $save->user_id = Auth::user()->id;
+        $save->rating = trim($request->rating);
+        $save->review = trim($request->review);
+        $save->save();
+
+        return redirect()->back()->with('success', "Thank you for your review");
     }
 }

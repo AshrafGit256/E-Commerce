@@ -30,9 +30,10 @@
 
     .page-header h1 {
         position: relative;
-        z-index: 1;
-        font-size: 36px;
-        font-weight: bold;
+        z-index: 100;
+        font-size: 46px;
+        font-weight: normal;
+        color: #fff;
     }
 
     .table {
@@ -63,6 +64,7 @@
 
     .table td {
         border: 1px solid #ddd;
+        text-align: center;
         /* Slightly smaller text */
     }
 
@@ -129,8 +131,11 @@
 
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content mt-3">
+                            @include('admin.layouts._message')
                             <div class="card-body">
+
                                 <div class="row">
+
                                     <!-- Order Details -->
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -179,8 +184,6 @@
                                 <h3 class="card-title">Product Details</h3>
                             </div>
 
-                            @include('admin.layouts._message')
-
                             <div class="card-body p-0" style="overflow: auto;">
                                 <table class="table table-striped">
                                     <thead>
@@ -190,27 +193,64 @@
                                             <th>Product Name</th>
                                             <th>QTY</th>
                                             <th>Price</th>
+
                                             <th>Size</th>
+                                            
+
+                                            
                                             <th>Color</th>
+                                            
+                                            
                                             <th>Total</th>
+
+                                            @if($getRecord->status == 2 || $getRecord->status == 3)
+                                            <th>Reviews</th>
+                                            @endif
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($getRecord->getItem as $item)
                                         @php $getProductImage = $item->getProduct->getImageSingle($item->getProduct->id); @endphp
                                         <tr>
-                                            <td>
-                                                <img style="width: 80px;" src="{{ $getProductImage->get_image() }}">
+                                            <td style="place-items: center;">
+                                                <img style="width: 80px; place-items:center;" src="{{ $getProductImage->get_image() }}">
                                             </td>
-                                            <td>
+                                            <td style="max-width:300px;">
                                                 <a target="_blank" href="{{ url($item->getProduct->slug) }}">{{ $item->getProduct->title }}</a>
                                             </td>
                                             <td>{{ $item->getProduct->title }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->price }}</td>
+
+                                            
                                             <td>{{ $item->size_name }}</td>
+                                            
                                             <td>{{ $item->color_name }}</td>
+
+                                            <!-- @if(!empty($item->color_name))
+                                            <td>{{ $item->color_name }}</td>
+                                            @endif -->
+
                                             <td>{{ $item->quantity * $item->price }}</td>
+
+                                            @if($getRecord->status == 2 || $getRecord->status == 3)
+                                            <td>
+                                                @php
+                                                    $getReview = $item->getReview($item->getProduct->id, $getRecord->id);
+                                                @endphp
+                                                
+
+                                                @if(!empty($getReview))
+                                                    <b>Rating :</b> {{ $getReview->rating }} <br>
+                                                    <b>Review :</b> {{ $getReview->review }} <br>
+                                                @else
+                                                <button class="btn btn-primary makeReview" id="{{ $item->getProduct->id }}" data-order="{{ $getRecord->id }}">Make Review</button>
+                                                @endif
+
+                                            </td>
+                                            @endif
+
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -223,8 +263,66 @@
         </div>
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="MakeReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make Review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="{{ url('user/make-review') }}" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" required id="getProductId" name="product_id">
+                <input type="hidden" required id="getOrderId" name="order_id">
+                <div class="modal-body" style="padding:20px;">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label>How many ratings? <span style="color: red;">*</span></label>
+                        <select class="form-control" required name="rating">
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Review <span style="color: red;">*</span> </label>
+                        <textarea class="form-control" required name="review">
+
+                        </textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
-<!-- Add any additional scripts if needed -->
+<script type="text/javascript">
+    $('body').delegate('.makeReview', 'click', function() {
+        var product_id = $(this).attr('id');
+        var order_id = $(this).attr('data_order');
+
+        $('#getProductId').val(product_id);
+        $('#getOrderId').val(order_id);
+
+        $('#MakeReviewModal').modal('show');
+    });
+</script>
 @endsection
