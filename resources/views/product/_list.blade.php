@@ -40,9 +40,9 @@
                     </div><!-- End .product-price -->
                     <div class="ratings-container">
                         <div class="ratings">
-                            <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                            <div class="ratings-val" style="width: {{ $value->getReviewRating($value->id) }}%;"></div><!-- End .ratings-val -->
                         </div><!-- End .ratings -->
-                        <span class="ratings-text">( 2 Reviews )</span>
+                        <span class="ratings-text">( {{ $value->getTotalReview() }} Reviews )</span>
                     </div><!-- End .rating-container -->
 
                 </div><!-- End .product-body -->

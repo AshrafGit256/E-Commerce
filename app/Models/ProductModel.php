@@ -256,7 +256,37 @@ class ProductModel extends Model
     public function getTotalReview() 
     {
         return $this->hasMany(ProductReviewModel::class, 'product_id')
-                    ->join('users', 'users.id', '=', 'product_review.user_id')
+                    ->join('users', 'users.id', 'product_review.user_id')
                     ->count();
+    }
+
+    public function getReviewRating($product_id) 
+    {
+        $avg = ProductReviewModel::getRatingAVG($product_id);
+
+        if($avg >=1 && $avg <= 1)
+        {
+            return 20;
+        }
+        else if($avg >=1 && $avg <= 2)
+        {
+            return 40;
+        }
+        else if($avg >=1 && $avg <= 3)
+        {
+            return 60;
+        }
+        else if($avg >=1 && $avg <= 4)
+        {
+            return 80;
+        }
+        else if($avg >=1 && $avg <= 5)
+        {
+            return 100;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

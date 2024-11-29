@@ -29,10 +29,18 @@ class ProductReviewModel extends Model
     static function getReviewProduct($product_id)
     {
         return self::select('product_review.*', 'users.name')
-            ->join('users', 'users.id', '=', 'product_review.user_id') // Corrected the join condition
+            ->join('users', 'users.id', 'product_review.user_id') // Corrected the join condition
             ->where('product_review.product_id', '=', $product_id)
             ->orderBy('product_review.id', 'desc')
             ->paginate(10);
+    }
+
+    static function getRatingAVG($product_id)
+    {
+        return self::select('product_review.rating')
+            ->join('users', 'users.id', '=', 'product_review.user_id') // Corrected the join condition
+            ->where('product_review.product_id', '=', $product_id)
+            ->avg('product_review.rating');
     }
 
     public function getPercent()

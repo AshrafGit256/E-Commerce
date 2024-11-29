@@ -317,7 +317,7 @@
 <script type="text/javascript">
     $('body').delegate('.makeReview', 'click', function() {
         var product_id = $(this).attr('id');
-        var order_id = $(this).attr('data_order');
+        var order_id = $(this).attr('data-order');
 
         $('#getProductId').val(product_id);
         $('#getOrderId').val(order_id);
