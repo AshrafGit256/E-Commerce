@@ -17,7 +17,7 @@ class AuthController extends Controller
     // Admin login page
     public function login_admin()
     {
-        if(Auth::check() && Auth::user()->is_admin == 1) {
+        if (Auth::check() && Auth::user()->is_admin == 1) {
             return redirect('admin/dashboard');
         }
 
@@ -30,15 +30,15 @@ class AuthController extends Controller
         $remember = !empty($request->remember) ? true : false;
 
         if (Auth::attempt([
-            'email' => $request->email, 
-            'password' => $request->password, 
-            'is_admin' => 1, 
-            'status' => 0, 
+            'email' => $request->email,
+            'password' => $request->password,
+            'is_admin' => 1,
+            'status' => 0,
             'is_delete' => 0
         ], $remember)) {
             return redirect('admin/dashboard');
         } else {
-            return redirect()->back()->with('error', "Please enter correct email and password"); 
+            return redirect()->back()->with('error', "Please enter correct email and password");
         }
     }
 
@@ -55,39 +55,27 @@ class AuthController extends Controller
         $remember = !empty($request->is_remember) ? true : false;
 
         if (Auth::attempt([
-            'email' => $request->email, 
-            'password' => $request->password,  
-            'status' => 0, 
+            'email' => $request->email,
+            'password' => $request->password,
+            'status' => 0,
             'is_delete' => 0
-        ], $remember)) 
-        {
-            if(!empty(Auth::user()->email_verified_at))
-            {
+        ], $remember)) {
+            if (!empty(Auth::user()->email_verified_at)) {
                 $json['status'] = true;
                 $json['message'] = 'success';
-            }
-            else
-            {
+            } else {
                 $save = User::getSingle(Auth::user()->id);
 
-                try
-                {
+                try {
                     Mail::to($save->email)->send(new RegisterMail($save));
+                } catch (\Exception $e) {
                 }
-                catch (\Exception $e)
-                {
 
-                }
-               
                 Auth::logout();
                 $json['status'] = false;
                 $json['message'] = 'your account is not verified, Please check your inbox and verify';
             }
-            
-        } 
-        
-        else 
-        {
+        } else {
             $json['status'] = false;
             $json['message'] = 'Please enter correct email and password';
         }
@@ -99,34 +87,28 @@ class AuthController extends Controller
     public function auth_register(Request $request)
     {
         $checkEmail = User::checkEmail($request->email);  // Corrected method
-        if(empty($checkEmail)) {
+        if (empty($checkEmail)) {
             $save = new User;
             $save->name = trim($request->name);
             $save->email = trim($request->email);  // You should also store the email
             $save->password = Hash::make($request->password);
             $save->save();
 
-            try
-            {
+            try {
                 Mail::to($save->email)->send(new RegisterMail($save));
+            } catch (\Exception $e) {
             }
-            catch (\Exception $e)
-            {
 
-            }
-            
 
             $user_id = 1;
             $url = url('admin/customer/list');
-            $message = "New Customer Registers #".$request->name;
+            $message = "New Customer Registers #" . $request->name;
 
             NotificationModel::insertRecord($user_id, $url, $message);
 
             $json['status'] = true;
             $json['message'] = "Your account has been successfully created. Please verify your email address";
-        } 
-        else 
-        {
+        } else {
             $json['status'] = false;
             $json['message'] = "Email already taken, please choose another email";
         }
@@ -149,7 +131,7 @@ class AuthController extends Controller
         $data['meta_title'] = "Forgot Password";
         return view('admin.auth.forgot', $data);
     }
-    
+
     public function auth_forgot_password(Request $request)
     {
         // Validate the request input to ensure the email is valid
@@ -165,18 +147,14 @@ class AuthController extends Controller
             // Generate a random token for password reset
             $user->remember_token = Str::random(30);
             $user->save();
-        
-            // Send the ForgotPasswordMail to the user's email
-            try
-            {
-                Mail::to($user->email)->send(new ForgotPasswordMail($user));
-            }
-            catch (\Exception $e)
-            {
 
+            // Send the ForgotPasswordMail to the user's email
+            try {
+                Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            } catch (\Exception $e) {
             }
-            
-        
+
+
             // Redirect back with a success message
             return redirect()->back()->with('success', "Password reset email has been sent.");
         } else {
@@ -188,41 +166,55 @@ class AuthController extends Controller
     public function reset($token)
     {
         $user = User::where('remember_token', '=', $token)->first();
-        if(!empty($user))
-        {
+        if (!empty($user)) {
             $data['user'] = $user;
             $data['meta_title'] = "Reset Password";
             return view('admin.auth.reset', $data);
-        }
-        else
-        {
+        } else {
             abort(404);
         }
     }
 
     public function auth_reset($token, Request $request)
-{
-    // Validate the input to ensure passwords are filled
-    $request->validate([
-        'password' => 'required|min:8', // Ensure password is at least 8 characters
-        'cpassword' => 'required|same:password', // Ensure confirmation matches the password
-    ]);
+    {
+        // Validate the input to ensure passwords are filled
+        $request->validate([
+            'password' => 'required|min:8', // Ensure password is at least 8 characters
+            'cpassword' => 'required|same:password', // Ensure confirmation matches the password
+        ]);
 
-    // Find the user with the provided token
-    $user = User::where('remember_token', '=', $token)->first();
+        // Find the user with the provided token
+        $user = User::where('remember_token', '=', $token)->first();
 
-    if ($user) {
-        // If passwords match, hash the new password and reset the remember token
-        $user->password = Hash::make($request->password);
-        $user->remember_token = Str::random(30); // Change token to prevent reuse
-        $user->save();
+        if ($user) {
+            // If passwords match, hash the new password and reset the remember token
+            $user->password = Hash::make($request->password);
+            $user->remember_token = Str::random(30); // Change token to prevent reuse
+            $user->save();
 
-        return redirect(url(''))->with('success', "Password successfully reset.");
-    } else {
-        // If no user is found, redirect with an error message
-        return redirect(url(''))->with('error', "Invalid token or user not found.");
+            return redirect(url(''))->with('success', "Password successfully reset.");
+        } else {
+            // If no user is found, redirect with an error message
+            return redirect(url(''))->with('error', "Invalid token or user not found.");
+        }
     }
-}
 
+    public function lockscreen()
+    {
+        return view('auth.lockscreen', ['user' => Auth::user()]);
+    }
 
+    public function unlock(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect()->route('dashboard'); // This now points to admin/dashboard
+        }
+
+        return back()->withErrors(['message' => 'Invalid credentials.']);
+    }
 }

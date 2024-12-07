@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&family=Lora:wght@400;700&family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 @section('content')
 
 <main class="main">
@@ -125,9 +125,10 @@
     @if(!empty($getProductTrendy->count()))
     <div class="container-fluid">
         <div class="heading heading-center mb-3">
-            <h2 class="title-lg" style="font-family: 'Arial, sans-serif'; font-size: 44px; font-weight: bold; color: #555555; letter-spacing: 1px;">
+            <h2 class="title-lg" style="font-family: 'Trebuchet MS', sans-serif; font-size: 50px; font-weight: bold; color: #997d57; text-align: center; margin: 20px 0;">
                 {{ !empty($getHomeSetting->trendy_product_title) ? $getHomeSetting->trendy_product_title : 'Trendy Products'}}
             </h2>
+
 
 
         </div><!-- End .heading -->
@@ -200,12 +201,12 @@
                                 ${{ number_format($value->price, 2) }}
                             </div><!-- End .product-price -->
 
-                            <div class="ratings-container" style="display: flex; align-items: center; margin-top: 10px;">
-                                <div class="ratings" style="width: 80px; height: 14px; background-color: #ddd; border-radius: 7px; overflow: hidden;">
-                                    <div class="ratings-val" style="width: 20%; height: 100%; background-color: #FF5733;"></div><!-- End .ratings-val -->
+                            <div class="ratings-container">
+                                <div class="ratings">
+                                    <div class="ratings-val" style="width: {{ $value->getReviewRating($value->id) }}%;"></div><!-- End .ratings-val -->
                                 </div><!-- End .ratings -->
-                                <span class="ratings-text" style="font-size: 12px; margin-left: 8px; color: #777;">(2 Reviews)</span>
-                            </div><!-- End .rating-container -->
+                                <span class="ratings-text">( {{ $value->getTotalReview() }} Reviews )</span>
+                            </div>
                         </div><!-- End .product-body -->
                     </div><!-- End .product -->
 

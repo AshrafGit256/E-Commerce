@@ -91,7 +91,7 @@
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <!-- <th>#</th> -->
                                             <th>Order Number</th>
                                             <th>Total Amount</th>
                                             <th>Payment Method</th>
@@ -103,7 +103,7 @@
                                     <tbody>
                                     @foreach($getRecord as $value)
                                         <tr>
-                                            <td>{{ $value->id }}</td>
+                                            <!-- <td>{{ $value->id }}</td> -->
                                             <td>{{ $value->order_number }}</td>
                                             <td>${{ number_format($value->total_amount, 2) }}</td>
                                             <td class="text-capitalize">{{ $value->payment_method }}</td>

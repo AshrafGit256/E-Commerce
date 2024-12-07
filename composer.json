@@ -12,6 +12,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
+        "stichoza/google-translate-php": "^5.2",
         "stripe/stripe-php": "^15.6"
     },
     "require-dev": {

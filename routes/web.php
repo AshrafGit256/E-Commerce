@@ -18,12 +18,19 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerController;
 
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ProductFront;
 use App\Http\Controllers\MailController;
 
+
+Route::get('translate',function(){
+    $lang = new GoogleTranslate('en');
+    return $lang-> setSource('en')->setTarget('de')->translate("Hello");
+});
 
 // Public routes
 Route::get('/', [AuthController::class, 'login_admin']);
@@ -59,6 +66,11 @@ Route::group(['middleware' => 'admin'], function() {
 });
 
 Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/lockscreen', [AuthController::class, 'lockscreen'])->name('lockscreen');
+Route::post('/unlock', [AuthController::class, 'unlock'])->name('unlock');
+
 
 Route::get('admin/admin/list', [AdminController::class, 'list']);
 Route::get('admin/admin/add', [AdminController::class, 'add']);
