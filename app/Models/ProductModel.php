@@ -71,6 +71,10 @@ class ProductModel extends Model
             $return = $return->where('product.category_id', '=', request()->get('category_id'));
         }
 
+        // if (!empty(Request::get('category_id'))) {
+        //     $return = $return->where('product.category_id', '=', Request::get('category_id'));
+        // }
+
         $return = $return->groupBy('product.id')
                         ->orderBy('product.id', 'desc')
                         ->limit(8)

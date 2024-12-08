@@ -34,6 +34,7 @@ class HomeController extends Controller
         $data['getCategory'] = CategoryModel::getRecordActiveHome();
 
         $data['getProduct'] = ProductModel::getRecentArrival();
+
         $data['getProductTrendy'] = ProductModel::getProductTrendy();
 
         $data['meta_title'] = $getPage->meta_title;

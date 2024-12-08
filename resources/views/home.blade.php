@@ -28,9 +28,10 @@
                                     </figure>
 
                                     <div class="intro-content">
-                                        <h1 class="intro-title">
+                                        <h1 class="intro-title" style="font-family: 'Trebuchet MS', sans-serif; font-size: 50px; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 2px;">
                                             {!! $slider->title !!}
                                         </h1>
+
                                         @if(!empty($slider->button_link) && !empty($slider->button_name))
                                         <a href="{{ $slider->button_link }}" class="btn btn-outline-white">
                                             <span>{{ $slider->button_name }}</span>
@@ -269,9 +270,11 @@
         <div class="tab-content">
             <div class="tab-pane p-0 fade show active" id="top-all-tab" role="tabpanel" aria-labelledby="top-all-link">
                 <div class="products">
+
                     @php
                     $is_home = 1;
                     @endphp
+
                     @include('product._list')
                 </div><!-- End .products -->
 
@@ -439,8 +442,8 @@
         var category_id = $(this).attr('data-val');
 
         $.ajax({
-            type: "POST",
             url: "{{ url('recent_arrival_category_product') }}",
+            type: "POST",
             data: {
                 "_token": "{{ csrf_token() }}",
                 category_id: category_id,
