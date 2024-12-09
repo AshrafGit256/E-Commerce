@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TopSliderController;
+use App\Http\Controllers\Admin\BottomSliderController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -166,6 +168,22 @@ Route::post('admin/slider/add', [SliderController::class, 'insert']);
 Route::get('admin/slider/edit/{id}', [SliderController::class, 'edit']);
 Route::post('admin/slider/edit/{id}', [SliderController::class, 'update']);
 Route::get('admin/slider/delete/{id}', [SliderController::class, 'delete']);
+
+
+Route::get('admin/top_slider/list', [TopSliderController::class, 'list']);
+Route::get('admin/top_slider/add', [TopSliderController::class, 'add']);
+Route::post('admin/top_slider/add', [TopSliderController::class, 'insert']);
+Route::get('admin/top_slider/edit/{id}', [TopSliderController::class, 'edit']);
+Route::post('admin/top_slider/edit/{id}', [TopSliderController::class, 'update']);
+Route::get('admin/top_slider/delete/{id}', [TopSliderController::class, 'delete']);
+
+
+Route::get('admin/bottom_slider/list', [BottomSliderController::class, 'list']);
+Route::get('admin/bottom_slider/add', [BottomSliderController::class, 'add']);
+Route::post('admin/bottom_slider/add', [BottomSliderController::class, 'insert']);
+Route::get('admin/bottom_slider/edit/{id}', [BottomSliderController::class, 'edit']);
+Route::post('admin/bottom_slider/edit/{id}', [BottomSliderController::class, 'update']);
+Route::get('admin/bottom_slider/delete/{id}', [BottomSliderController::class, 'delete']);
 
 
 Route::get('admin/partner/list', [PartnerController::class, 'list']);

@@ -12,6 +12,8 @@ use App\Models\ContactUsModel;
 use App\Models\PartnerModel;
 use App\Models\ProductModel;
 use App\Models\SliderModel;
+use App\Models\TopSliderModel;
+use App\Models\BottomSliderModel;
 use App\Models\BlogModel;
 use App\Models\BlogCategoryModel;
 use App\Models\BlogCommentModel;
@@ -30,6 +32,8 @@ class HomeController extends Controller
 
         $data['getBlog'] = BlogModel::getRecordActiveHome();
         $data['getSlider'] = SliderModel::getRecordActive();
+        $data['getTopSlider'] = TopSliderModel::getRecordActive();
+        $data['getBottomSlider'] = BottomSliderModel::getRecordActive();
         $data['getPartner'] = PartnerModel::getRecordActive();
         $data['getCategory'] = CategoryModel::getRecordActiveHome();
 

@@ -48,33 +48,48 @@
                     </div>
 
 
+
                     <div class="col-lg-4">
                         <div class="row">
+                            @foreach($getTopSlider as $top_slider)
+                            @if(!empty($top_slider->getImage()))
                             <div class="col-12 col-md-6 col-lg-12 mb-2">
-                                <div class="banner banner-display">
+                                <div class="banner banner-display" style="border-radius: 12%;">
                                     <a href="#">
-                                        <img src="assets/images/banners/home/intro/banner-1.jpg" alt="Banner">
+                                    <img src="{{ $top_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
                                     </a>
                                     <div class="banner-content">
-                                        <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearance</a></h4>
-                                        <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up to 40% off</a></h3>
-                                        <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                                        <h4 class="banner-subtitle text-darkwhite">{!! $top_slider->sub_title !!}</h4>
+                                        <h3 class="banner-title text-white">{!! $top_slider->title !!}</a></h3>
 
-                            <div class="col-12 col-md-6 col-lg-12">
-                                <div class="banner banner-display">
-                                    <a href="#">
-                                        <img src="assets/images/banners/home/intro/banner-2.jpg" alt="Banner">
-                                    </a>
-                                    <div class="banner-content">
-                                        <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4>
-                                        <h3 class="banner-title text-white"><a href="#">Best Lighting <br>Collection</a></h3>
-                                        <a href="#" class="btn btn-outline-white banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
+                                        @if(!empty($top_slider->button_link) && !empty($top_slider->button_name))
+                                        <a href="{{ $top_slider->button_link }}" class="btn btn-outline-white banner-link">{{ $top_slider->button_name }}<i class="icon-long-arrow-right"></i></a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @endforeach
+
+                            @foreach($getBottomSlider as $bottom_slider)
+                            @if(!empty($bottom_slider->getImage()))
+                            <div class="col-12 col-md-6 col-lg-12">
+                                <div class="banner banner-display" style="border-radius: 12%;">
+                                    <a href="#">
+                                    <img src="{{ $bottom_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
+                                    </a>
+                                    <div class="banner-content">
+                                        <h4 class="banner-subtitle text-darkwhite">{!! $bottom_slider->sub_title !!}</h4>
+                                        <h3 class="banner-title text-white">{!! $bottom_slider->title !!}</h3>
+
+                                        @if(!empty($bottom_slider->button_link) && !empty($bottom_slider->button_name))
+                                        <a href="{{ $bottom_slider->button_link }}" class="btn btn-outline-white banner-link">{{ $bottom_slider->button_name }}<i class="icon-long-arrow-right"></i></a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>

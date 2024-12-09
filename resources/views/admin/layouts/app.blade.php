@@ -22,7 +22,7 @@
     @yield('style')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition dark-mode sidebar-mini">
     
 <div class="wrapper" >
     @include('admin.layouts.header')

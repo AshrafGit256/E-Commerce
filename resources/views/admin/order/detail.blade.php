@@ -4,7 +4,7 @@
 <!-- Add some custom CSS for better styling -->
 <style>
     .form-group {
-        background-color: #f8f9fa;
+        background-color: #adb5bd;
         /* Light grey background */
         border-radius: 5px;
         padding: 15px;
@@ -40,7 +40,7 @@
     .content-header h1 {
         font-size: 28px;
         font-weight: bold;
-        color: #343a40;
+        color: #fff;
     }
 
     .card-title {

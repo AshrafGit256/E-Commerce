@@ -67,7 +67,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
 @endphp
 
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-light">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -265,12 +265,34 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
         </li>
 
         <li class="nav-item">
-          <a href="{{ url('admin/slider/list') }}" class="nav-link @if(Request::segment(2) == 'slider') active @endif">
-            <i class="nav-icon fas fa-images"></i>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-copy"></i>
             <p>
-              Slider
+              Home Sliders
+              <i class="fas fa-angle-left right"></i>
+              <span class="badge badge-info right">3</span>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ url('admin/slider/list') }}" class="nav-link @if(Request::segment(2) == 'slider') active @endif">
+                <i class="nav-icon fas fa-images"></i>
+                <p>Left Slider</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('admin/top_slider/list') }}" class="nav-link @if(Request::segment(2) == 'top_slider') active @endif">
+                <i class="nav-icon fas fa-images"></i>
+                <p>Top Slider</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('admin/bottom_slider/list') }}" class="nav-link @if(Request::segment(2) == 'bottom_slider') active @endif">
+                <i class="nav-icon fas fa-images"></i>
+                <p>Bottom Slider</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item">

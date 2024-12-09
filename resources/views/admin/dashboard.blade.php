@@ -213,7 +213,7 @@
   });
 
     var ticksStyle = {
-    fontColor: '#495057',
+    fontColor: '#FFFFFF',
     fontStyle: 'bold'
   }
 
