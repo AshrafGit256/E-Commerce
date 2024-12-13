@@ -175,7 +175,7 @@
                             <tbody >
                             <tr>
                                 <td>
-                                    <input type="text" name="old_price" required value="{{ !empty($product->old_price) ? $product->old_price : '' }}" class="form-control" placeholder="Old Price">
+                                    <input type="text" name="old_price"  value="{{ !empty($product->old_price) ? $product->old_price : '' }}" class="form-control" placeholder="Old Price">
                                 </td>
                                 <td>
                                     <input type="text" name="price" required value="{{ !empty($product->price) ? $product->price : '' }}" class="form-control" placeholder="New Price">

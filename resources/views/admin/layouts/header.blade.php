@@ -247,6 +247,13 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
         </li>
 
         <li class="nav-item">
+          <a href="{{ url('admin/timeline') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Timeline</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a href="{{ url('admin/discount_code/list') }}" class="nav-link @if(Request::segment(2) == 'discount_code') active @endif">
             <i class="nav-icon fas fa-percent"></i>
             <p>

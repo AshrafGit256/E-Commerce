@@ -35,6 +35,12 @@
 
     @yield('style')
 
+    <style>
+        .btn-wishlist-add::before {
+            content: '\f233' !important;
+        }
+    </style>
+
 </head>
 
 <body>

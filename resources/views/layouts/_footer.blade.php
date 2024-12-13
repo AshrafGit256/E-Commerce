@@ -1,18 +1,23 @@
 <style>
     .footer {
-        background-color: #333; /* Dark gray background */
-        color: #f8f9fa; /* Light gray text color for contrast */
-        padding: 40px 0; /* Padding for spaciousness */
+        background-color: #333;
+        /* Dark gray background */
+        color: #f8f9fa;
+        /* Light gray text color for contrast */
+        padding: 40px 0;
+        /* Padding for spaciousness */
     }
 
     .footer-link {
-        color: #f8f9fa; /* Light gray link color */
+        color: #f8f9fa;
+        /* Light gray link color */
         text-decoration: none;
         transition: color 0.3s ease;
     }
 
     .footer-link:hover {
-        color: #ddd; /* Slightly darker gray on hover */
+        color: #ddd;
+        /* Slightly darker gray on hover */
         text-decoration: underline;
     }
 
@@ -23,30 +28,38 @@
     }
 
     .footer-title {
-        color: #f8f9fa; /* Light gray for titles */
+        color: #f8f9fa;
+        /* Light gray for titles */
         margin-bottom: 15px;
-        font-size: 18px; /* Larger font size for visibility */
+        font-size: 18px;
+        /* Larger font size for visibility */
     }
 
     .social-icon {
         margin-right: 10px;
-        color: #f8f9fa; /* Light gray for icons */
+        color: #f8f9fa;
+        /* Light gray for icons */
         transition: color 0.3s ease;
     }
 
     .social-icon:hover {
-        color: #ddd; /* Slightly darker gray on hover */
+        color: #ddd;
+        /* Slightly darker gray on hover */
     }
 
     .footer-bottom {
-        background-color: #444; /* Slightly lighter gray for bottom */
-        padding: 20px 0; /* Padding for bottom section */
-        text-align: center; /* Centered text */
+        background-color: #444;
+        /* Slightly lighter gray for bottom */
+        padding: 20px 0;
+        /* Padding for bottom section */
+        text-align: center;
+        /* Centered text */
     }
 
     .footer-bottom p {
         margin: 0;
-        color: #bbb; /* Medium gray for copyright */
+        color: #bbb;
+        /* Medium gray for copyright */
     }
 
     .footer-payments img {
@@ -57,11 +70,13 @@
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .footer-link {
-            font-size: 14px; /* Smaller font for mobile */
+            font-size: 14px;
+            /* Smaller font for mobile */
         }
 
         .footer-title {
-            font-size: 16px; /* Smaller title font on mobile */
+            font-size: 16px;
+            /* Smaller title font on mobile */
         }
     }
 </style>
@@ -72,7 +87,20 @@
             <!-- About Section -->
             <div class="col-sm-6 col-lg-3">
                 <div class="widget">
-                    <img src="{{ $getSystemSettingApp->getLogo() }}" class="footer-logo" alt="Footer Logo" style="border-radius: 20%;">
+                    
+
+                    <!-- Site Logo -->
+                    <div id="logoModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center;">
+                        <span class="close" onclick="closeModal()" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 30px; cursor: pointer;">&times;</span>
+                        <img id="modalImage" style="max-width: 90%; max-height: 90%; border-radius: 8px;">
+                    </div>
+
+
+                    <a href="javascript:void(0);" class="logo" onclick="openModal('{{ $getSystemSettingApp->getLogo() }}')">
+                        <img src="{{ $getSystemSettingApp->getLogo() }}" alt="E-Commerce" width="140" height="140" style="border-radius: 20%;">
+                    </a>
+                    
+
                     <p style="font-size: 14px; line-height: 1.6;">{{ $getSystemSettingApp->footer_description }}</p>
 
                     <div class="social-icons" style="margin-top: 15px;">

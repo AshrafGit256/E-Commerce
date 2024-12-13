@@ -3,8 +3,8 @@
 @section('content')
 
 <main class="main">
-    <div class="intro-section bg-lighter pt-5 pb-6">
-        <div class="intro-section bg-lighter pt-5 pb-6">
+    <div class="intro-section bg-lighter pt-2 pb-2">
+        <div class="intro-section bg-lighter pt-1 pb-1">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
@@ -56,7 +56,7 @@
                             <div class="col-12 col-md-6 col-lg-12 mb-2">
                                 <div class="banner banner-display" style="border-radius: 12%;">
                                     <a href="#">
-                                    <img src="{{ $top_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
+                                        <img src="{{ $top_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
                                     </a>
                                     <div class="banner-content">
                                         <h4 class="banner-subtitle text-darkwhite">{!! $top_slider->sub_title !!}</h4>
@@ -76,7 +76,7 @@
                             <div class="col-12 col-md-6 col-lg-12">
                                 <div class="banner banner-display" style="border-radius: 12%;">
                                     <a href="#">
-                                    <img src="{{ $bottom_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
+                                        <img src="{{ $bottom_slider->getImage() }}" alt="Banner" style="width: 100%; height: 270px; object-fit: cover; border-radius: 12px;">
                                     </a>
                                     <div class="banner-content">
                                         <h4 class="banner-subtitle text-darkwhite">{!! $bottom_slider->sub_title !!}</h4>
@@ -96,7 +96,7 @@
 
 
                 @if(!empty($getPartner->count()))
-                <div class="mb-6"></div>
+                <div class="mb-3"></div>
 
                 <div class="owl-carousel owl-simple" data-toggle="owl"
                     data-owl-options='{
@@ -193,13 +193,9 @@
 
                             <div class="product-action-vertical" style="position: absolute; top: 10px; right: 10px;">
                                 @if(!empty(Auth::check()))
-                                <a href="javascript:;" class="add_to_wishlist add_to_wishlist{{ $value->id }} btn-product-icon btn-wishlist btn-expandable {{ !empty($value->checkWishList($value->id)) ? 'btn-wishlist-add' : ''}}" id="{{ $value->id }}" title="Wishlist" style="background-color: #ffffff; border-radius: 50%; padding: 10px; transition: background-color 0.3s ease;">
-                                    <span style="font-size: 12px; color: #555;">&#9825; Add to Wishlist</span>
-                                </a>
+                                <a href="javascript:;" data-toggle="modal" class="add_to_wishlist add_to_wishlist{{ $value->id }}  btn-product-icon btn-wishlist btn-expandable {{ !empty($value->checkWishList($value->id)) ? 'btn-wishlist-add' : ''}} " id="{{ $value->id }}" title="Wishlist"><span>add to wishlist</span></a>
                                 @else
-                                <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable" title="Wishlist" style="background-color: #ffffff; border-radius: 50%; padding: 10px; transition: background-color 0.3s ease;">
-                                    <span style="font-size: 12px; color: #555;">&#9825; Add to Wishlist</span>
-                                </a>
+                                <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable" title="Wishlist"><span>add to wishlist</span></a>
                                 @endif
                             </div><!-- End .product-action-vertical -->
                         </figure><!-- End .product-media -->
@@ -216,6 +212,13 @@
                             <div class="product-price" style="font-size: 20px; font-weight: bold; color: #FF5733;">
                                 ${{ number_format($value->price, 2) }}
                             </div><!-- End .product-price -->
+
+                            @if(isset($value->old_price) && $value->old_price)
+                            <div class="old-price">
+                                was ${{ number_format($value->old_price, 2) }}
+                            </div>
+                            @endif
+
 
                             <div class="ratings-container">
                                 <div class="ratings">

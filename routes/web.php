@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\BottomSliderController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\TimelineController;
 
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -54,6 +55,7 @@ Route::get('user/change-password', [UserController::class, 'change_password']);
 Route::post('user/change-password', [UserController::class, 'update_password']);
 
 Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
+
 Route::post('user/make-review', [UserController::class, 'submit_review']);
 
 Route::get('user/notifications', [UserController::class, 'notifications']);
@@ -73,6 +75,7 @@ Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('
 Route::get('/lockscreen', [AuthController::class, 'lockscreen'])->name('lockscreen');
 Route::post('/unlock', [AuthController::class, 'unlock'])->name('unlock');
 
+Route::get('/admin/timeline', [TimelineController::class, 'index']);
 
 Route::get('admin/admin/list', [AdminController::class, 'list']);
 Route::get('admin/admin/add', [AdminController::class, 'add']);
