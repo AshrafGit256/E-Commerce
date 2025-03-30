@@ -41,6 +41,7 @@
                       <th>#</th>
                       <th>Image</th>
                       <th>Title</th>
+                      <th>Slug</th>
                       <th>Meta Title</th>
                       <th>Meta Description</th>
                       <th>Meta Keywords</th>
@@ -59,6 +60,7 @@
                       @endif
                     </td>
                     <td>{{$value->title}}</td>
+                    <td>{{$value->slug}}</td>
                     <td>{{$value->meta_title}}</td>
                     <td>{{$value->meta_description}}</td>
                     <td>{{$value->meta_keywords}}</td>

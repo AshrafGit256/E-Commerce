@@ -76,8 +76,13 @@ class BlogController extends Controller
 
     public function update($id, Request $request)
     {
+        request()->validate([
+            'slug'=>'required|unique:blog_category,slug,' .$id,
+        ]);
+
         $blog = BlogModel::getSingle($id); // Ensure getSingle method exists in your model
         $blog->title = trim($request->title);
+        $blog->slug = trim($request->slug);
         $blog->blog_category_id = trim($request->blog_category_id);
         $blog->short_description = trim($request->short_description);
         $blog->description = trim($request->description);

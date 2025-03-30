@@ -1,18 +1,12 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <header class="header">
     <div class="header-top">
         <div class="container-fluid">
             <div class="header-left">
-                <!-- <div class="header-dropdown">
-                            <a href="#">Usd</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">Usd</a></li>
-                                </ul>
-                            </div>
-                        </div> -->
 
                 <div class="header-dropdown">
-                    <a href="#">Language</a>
+                <a href="#"><i class="fas fa-language" style="font-size: 30px;"></i></a>
                     <div class="header-menu">
                         <ul>
                             <li><a href="?lang=en">English</a></li>
@@ -22,6 +16,14 @@
                     </div>
                 </div>
 
+                <div class="header-dropdown">
+                <a href="#"><i class="fas fa-yen-sign" style="font-size: 20px;"></i></a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#">Usd</a></li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
 
@@ -30,16 +32,22 @@
                     <li>
                         <a href="#">Links</a>
                         <ul>
+                            <li><a href="http://127.0.0.1:8000/"><i class="fas fa-bell"></i>Molla WeChat</a></li>
+
                             <li><a href="tel:{{ $getSystemSettingApp->phone}}"><i class="fas fa-phone-alt"></i>Call: {{ $getSystemSettingApp->phone}}</a></li>
+
                             @if(!empty(Auth::check()))
                             <li><a href="{{ url('my-wishlist') }}"><i class="fas fa-heart"></i>My Wishlist </a></li>
                             @else
                             <li><a href="#signin-modal" data-toggle="modal"><i class="fas fa-heart"></i>My Wishlist</a></li>
                             @endif
+
                             <li><a href="{{ url('about') }}"><i class="fas fa-info-circle"></i>About Us</a></li>
+
                             <li><a href="{{ url('contact') }}"><i class="fas fa-envelope"></i></i>Contact Us</a></li>
+
                             @if(!empty(Auth::check()))
-                            <li><a href="{{ url('user/dashboard') }}"><i class="fas fa-user"></i>{{ Auth::user()->name }}</a></li>
+                            <li><a href="{{ url('/dashboard') }}"><i class="fas fa-user"></i>{{ Auth::user()->name }}</a></li>
                             @else
                             <li><a href="#signin-modal" data-toggle="modal"><i class="fas fa-user"></i>Login</a></li>
                             @endif
@@ -59,16 +67,7 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <!-- Modal structure -->
-                <div id="logoModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center;">
-                    <span class="close" onclick="closeModal()" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 30px; cursor: pointer;">&times;</span>
-                    <img id="modalImage" style="max-width: 90%; max-height: 90%; border-radius: 8px;">
-                </div>
 
-
-                <a href="javascript:void(0);" class="logo" onclick="openModal('{{ $getSystemSettingApp->getLogo() }}')">
-                    <img src="{{ $getSystemSettingApp->getLogo() }}" alt="E-Commerce" width="70" height="70" style="border-radius: 50%;">
-                </a>
 
 
 

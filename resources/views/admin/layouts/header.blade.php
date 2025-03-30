@@ -57,6 +57,15 @@
     position: fixed;
     /* Ensures the sidebar stays fixed on the screen */
   }
+
+  .nav-treeview {
+    display: block;
+    /* Ensures the dropdown stays open */
+  }
+
+  .menu-open>.nav-treeview {
+    display: block;
+  }
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Lora:wght@700&display=swap" rel="stylesheet">
@@ -247,7 +256,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
         </li>
 
         <li class="nav-item">
-          <a href="{{ url('admin/timeline') }}" class="nav-link">
+          <a href="{{ url('admin/timeline') }}" class="nav-link @if(Request::segment(2) == 'timeline') active @endif">
             <i class="far fa-circle nav-icon"></i>
             <p>Timeline</p>
           </a>
@@ -271,7 +280,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" id="home-slider">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
             <p>
@@ -301,6 +310,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
             </li>
           </ul>
         </li>
+
 
         <li class="nav-item">
           <a href="{{ url('admin/partner/list') }}" class="nav-link @if(Request::segment(2) == 'partner') active @endif">
@@ -395,3 +405,14 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
   </div>
   <!-- /.sidebar -->
 </aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if any of the items in the "Home Sliders" dropdown are active
+    var homeSliderItem = document.getElementById('home-slider');
+    if (homeSliderItem.querySelector('.nav-link.active')) {
+      // Add the 'menu-open' class to the parent <li> to keep it open
+      homeSliderItem.classList.add('menu-open');
+    }
+  });
+</script>

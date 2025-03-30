@@ -3,7 +3,7 @@
 @section('content')
 
 <main class="main">
-        	<div class="page-header text-center" style="background-image: url('{{ $getPage->getImage() }}')">
+        	<div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
         		<div class="container-fluid">
         			<h1 class="page-title">{{ $getPage->title }}</h1>
         		</div><!-- End .container -->
@@ -23,7 +23,7 @@
                 		<div class="col-lg-9">
                             <div class="entry-container max-col-2" data-layout="fitRows">
                                 @foreach($getBlog as $value)
-                                    <div class="entry-item col-sm-6">
+                                    <div class="entry-item col-sm-4">
                                         <article class="entry entry-grid">
                                             <figure class="entry-media" style="border-radius: 5%;">
                                                 <a href="{{ url('blog/'.$value->slug) }}">

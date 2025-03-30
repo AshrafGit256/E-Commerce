@@ -42,6 +42,12 @@
                     <div style="color: red;">{{ $errors->first('title') }}</div>
                   </div>
 
+                  <div class="form-group">
+                    <label>Slug<span style="color: red;">*</span></label>
+                    <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" placeholder="Slug Ex. URL">
+                    <div style="color: red;">{{ $errors->first('slug') }}</div>
+                  </div>
+
                 <div class="form-group">
                     <label>Category Name <span style="color: red;">*</span></label>
                     <select class="form-control" name="blog_category_id" required>

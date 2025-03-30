@@ -14,7 +14,7 @@
             <h1>Product List</h1>
           </div>
           <div class="col-sm-6 text-right">
-            <a href="{{ url('admin/product/add') }}" class="btn btn-primary"> <i class="fas fa-plus-circle"></i>  Add New Product</a>
+            <a href="{{ url('admin/product/add') }}" class="btn btn-primary"> <i class="fas fa-plus-circle"></i> Add New Product</a>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -38,6 +38,9 @@
                     <tr class="btn-primary">
                       <th>#</th>
                       <th>Title</th>
+                      <th>SKU</th>
+                      <th>In Stock</th>
+                      <th>Sold Out</th>
                       <th>Created By</th>
                       <th>Status</th>
                       <th>Created At</th>
@@ -49,9 +52,12 @@
                     <tr>
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->title }}</td>
+                        <td>{{ $value->sku }}</td>
+                        <td>{{ $value->in_stock }}</td> <!-- Display in_stock -->
+                        <td>{{ $value->out_of_stock }}</td> <!-- Display out_of_stock -->
                         <td>{{ $value->created_by_name }}</td>
-                        <td>{{ ($value->status == 0) ? 'Active' : 'Inactive' }}</td>
-                        <td>{{ date('d-m-y', strtotime($value->created_at)) }}</td>
+                        <td>{{ $value->status == 0 ? 'Active' : 'Inactive' }}</td>
+                        <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                         <td width="300px">
                             <a href="{{ url('admin/product/edit/'.$value->id) }}" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a>
                             <a href="{{ url('admin/product/delete/'.$value->id) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
@@ -64,9 +70,8 @@
              
             </div>
             <div style="padding: 10px; float:right;">
-                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                </div>
-           
+                    {!! $getRecord->appends(request()->except('page'))->links() !!}
+            </div>
           </div>
         </div>
       </div>

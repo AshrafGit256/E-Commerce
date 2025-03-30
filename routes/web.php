@@ -24,16 +24,20 @@ use App\Http\Controllers\Admin\TimelineController;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\langController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ProductFront;
 use App\Http\Controllers\MailController;
 
 
-Route::get('translate',function(){
-    $lang = new GoogleTranslate('en');
-    return $lang-> setSource('en')->setTarget('de')->translate("Hello");
-});
+// Route::get('translate',function(){
+//     $lang = new GoogleTranslate('en');
+//     return $lang-> setSource('en')->setTarget('de')->translate("Hello");
+// });
+
+Route::get('lang/home',[langController::class,'index'])->name('index');
+Route::get('lang/change', [langController::class, 'change'])->name('changeLang');
 
 // Public routes
 Route::get('/', [AuthController::class, 'login_admin']);
@@ -45,20 +49,23 @@ Route::group(['middleware' => 'user'], function() {
     
 });
 
-Route::get('user/dashboard', [UserController::class, 'dashboard']);
-Route::get('user/orders', [UserController::class, 'orders']);
-Route::get('user/orders/detail/{id}', [UserController::class, 'orders_detail']);
-Route::get('user/edit-profile', [UserController::class, 'edit_profile']);
-Route::post('user/edit-profile', [UserController::class, 'update_profile']);
+Route::get('/dashboard', [UserController::class, 'dashboard']);
+Route::get('/orders', [UserController::class, 'orders']);
 
-Route::get('user/change-password', [UserController::class, 'change_password']);
-Route::post('user/change-password', [UserController::class, 'update_password']);
+
+Route::get('/user/orders/detail/{id}', [UserController::class, 'orders_detail'])->name('orders.detail');
+
+Route::get('/edit-profile', [UserController::class, 'edit_profile']);
+Route::post('/edit-profile', [UserController::class, 'update_profile']);
+
+Route::get('/change-password', [UserController::class, 'change_password']);
+Route::post('/change-password', [UserController::class, 'update_password']);
 
 Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
 
 Route::post('user/make-review', [UserController::class, 'submit_review']);
 
-Route::get('user/notifications', [UserController::class, 'notifications']);
+Route::get('/notifications', [UserController::class, 'notifications']);
 
 
 Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);

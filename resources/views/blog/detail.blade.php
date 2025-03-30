@@ -5,7 +5,7 @@
 <main class="main">
     <div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg'); background-size: cover; background-position: center; padding: 60px 0;">
         <div class="container-fluid">
-            <h1 class="page-title" style="font-size: 42px; font-weight: 700; color: #fff; letter-spacing: 2px;">{{ $getBlog->title }}</h1>
+            <h1 class="page-title" style="font-size: 42px; font-weight: 700; color:rgb(187, 173, 105); letter-spacing: 2px;">{{ $getBlog->title }}</h1>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
 

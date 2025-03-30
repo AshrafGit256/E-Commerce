@@ -93,11 +93,16 @@
                 <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
                 <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
                 <div class="timeline-body">
-                  <img src="https://placehold.it/150x100" alt="...">
-                  <img src="https://placehold.it/150x100" alt="...">
-                  <img src="https://placehold.it/150x100" alt="...">
-                  <img src="https://placehold.it/150x100" alt="...">
-                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="{{ asset('assets/images/bag_a.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_b.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_c.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_d.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_e.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_f.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_g.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_h.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_i.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
+                  <img src="{{ asset('assets/images/bag_j.jpg') }}" alt="Bag" style="width: 180px; height: 180px; border-radius: 5%">
                 </div>
               </div>
             </div>
@@ -110,7 +115,7 @@
                 <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
                 <div class="timeline-body">
                   <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/OcslEyiraPc" allowfullscreen></iframe>
                   </div>
                 </div>
                 <div class="timeline-footer">

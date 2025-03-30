@@ -8,7 +8,7 @@
         color: white;
     }
     .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #f9f9f9;
+        background-color:rgb(63, 62, 62);
     }
     .table-hover tbody tr:hover {
         background-color: #f1f1f1;
