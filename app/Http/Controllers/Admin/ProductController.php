@@ -56,7 +56,7 @@ class ProductController extends Controller
 
         // return redirect('admin/product/edit/'.$product->id);
 
-        return redirect('admin/product/list')->with('Success', "Product  Successfully created");
+        return redirect('admin/product/list')->with('success', "Product  successfully created");
     }
 
     public function edit($product_id)
@@ -153,7 +153,7 @@ class ProductController extends Controller
                 }
             }
 
-            return redirect()->back()->with('Success', "Product successfully updated");
+            return redirect()->back()->with('success', "Product successfully updated");
            
         }
         else
@@ -186,7 +186,7 @@ class ProductController extends Controller
         // Delete the product itself
         $product->delete();
 
-        return redirect()->back()->with('Success', "Product successfully deleted");
+        return redirect()->back()->with('success', "Product successfully deleted");
     } else {
         return redirect()->back()->with('Error', "Product not found");
     }
@@ -202,7 +202,7 @@ class ProductController extends Controller
         }
         $image->delete();
 
-        return redirect()->back()->with('Success', "Product's Image successfully deleted");
+        return redirect()->back()->with('success', "Product's Image successfully deleted");
     }
 
     public function product_image_sortable(Request $request)

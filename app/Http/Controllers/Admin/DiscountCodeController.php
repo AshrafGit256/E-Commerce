@@ -32,7 +32,7 @@ class DiscountCodeController extends Controller
         $DiscountCode->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $DiscountCode->save();
 
-        return redirect('admin/discount_code/list')->with('Success', "Discount Code  Successfully created");
+        return redirect('admin/discount_code/list')->with('success', "Discount Code  successfully created");
     }
 
     public function edit($id)
@@ -52,7 +52,7 @@ class DiscountCodeController extends Controller
         $DiscountCode->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $DiscountCode->save();
 
-        return redirect('admin/discount_code/list')->with('Success', "Discount Code Successfully Updated"); 
+        return redirect('admin/discount_code/list')->with('success', "Discount Code successfully Updated"); 
     }
 
     public function delete($id)
@@ -61,6 +61,6 @@ class DiscountCodeController extends Controller
         $DiscountCode->is_delete =1;
         $DiscountCode->save();
 
-        return redirect()->back()->with('Success', "Discount Code Successfully Deleted"); 
+        return redirect()->back()->with('success', "Discount Code successfully Deleted"); 
     }
 }

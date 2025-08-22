@@ -63,7 +63,7 @@ class BlogController extends Controller
 
         $blog->save();
 
-        return redirect('admin/blog/list')->with('Success', "Blog  Successfully created");
+        return redirect('admin/blog/list')->with('success', "Blog  successfully created");
     }
 
     public function edit($id)
@@ -108,7 +108,7 @@ class BlogController extends Controller
             $blog->save();
         }
 
-        return redirect('admin/blog/list')->with('Success', "Blog  Successfully Updated"); 
+        return redirect('admin/blog/list')->with('success', "Blog  successfully Updated"); 
     }
 
     public function delete($id)
@@ -117,7 +117,7 @@ class BlogController extends Controller
         $blog->is_delete =1;
         $blog->save();
 
-        return redirect()->back()->with('Success', "Blog  Successfully Deleted"); 
+        return redirect()->back()->with('success', "Blog  successfully Deleted"); 
     }
 
 }

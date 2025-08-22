@@ -90,6 +90,7 @@ class AuthController extends Controller
         if (empty($checkEmail)) {
             $save = new User;
             $save->name = trim($request->name);
+            $save->last_name = trim($request->last_name);
             $save->email = trim($request->email);  // You should also store the email
             $save->password = Hash::make($request->password);
             $save->save();

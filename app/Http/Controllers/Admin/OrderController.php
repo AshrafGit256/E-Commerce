@@ -23,7 +23,7 @@ class OrderController extends Controller
     {
         if(!empty($request->notify_id))
         {
-            NotificationModel::updateReadNotify($request->notify_id);
+            // NotificationModel::updateReadNotify($request->notify_id);
         }
         $data['getRecord'] = OrderModel::getSingle($id);
         $data['header_title'] = 'Order Detail';
@@ -40,9 +40,9 @@ class OrderController extends Controller
         $url = url('user/order');
         $message = "Your Order Status has been sucessfully updated #".$getOrder->order_number;
 
-        NotificationModel::insertRecord($user_id, $url, $message);
+        // NotificationModel::insertRecord($user_id, $url, $message);
 
-        Mail::to($getOrder->email)->send(new OrderStatusMail($getOrder));
+        // Mail::to($getOrder->email)->send(new OrderStatusMail($getOrder));
 
         $json['message'] = "Status successfully updated";
         echo json_encode($json);

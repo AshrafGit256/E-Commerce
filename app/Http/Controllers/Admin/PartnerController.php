@@ -38,7 +38,7 @@ class PartnerController extends Controller
         $partner->status = trim($request->status ?? 0); // Set a default value (e.g., 0) if status is empty
         $partner->save();
 
-        return redirect('admin/partner/list')->with('Success', "partner  Successfully created");
+        return redirect('admin/partner/list')->with('success', "partner  successfully created");
     }
 
     public function edit($id)
@@ -66,7 +66,7 @@ class PartnerController extends Controller
         $partner->status = trim($request->status ?? 0); // Set a default value (e.g., 0) if status is empty
         $partner->save();
 
-        return redirect('admin/partner/list')->with('Success', "Partner Successfully Updated"); 
+        return redirect('admin/partner/list')->with('success', "Partner successfully Updated"); 
     }
 
     public function delete($id)
@@ -75,6 +75,6 @@ class PartnerController extends Controller
         $partner->is_delete =1;
         $partner->save();
 
-        return redirect()->back()->with('Success', "Partner Successfully Deleted"); 
+        return redirect()->back()->with('success', "Partner successfully Deleted"); 
     }
 }

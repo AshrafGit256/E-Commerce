@@ -114,10 +114,17 @@
                                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                     <form action="" id="SubmitFormRegister" method="post">
                                         {{ csrf_field() }}
-                                        <div class="form-group">
-                                            <label for="register-name">Name <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" id="register-name" name="name" required>
-                                        </div><!-- End .form-group -->
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="register-name">First Name <span style="color: red;">*</span></label>
+                                                <input type="text" class="form-control" id="register-name" name="name" required>
+                                            </div><!-- End .col-md-6 -->
+
+                                            <div class="col-md-6">
+                                                <label for="register-lastName">Last Name <span style="color: red;">*</span></label>
+                                                <input type="text" class="form-control" id="register-lastName" name="last_name" required>
+                                            </div><!-- End .col-md-6 -->
+                                        </div><!-- End .form-group row -->
 
                                         <div class="form-group">
                                             <label for="register-email">Email address <span style="color: red;">*</span></label>
@@ -137,7 +144,7 @@
 
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="privacy-policy">privacy policy</a> *</label>
                                             </div><!-- End .custom-checkbox -->
                                         </div><!-- End .form-footer -->
                                     </form>

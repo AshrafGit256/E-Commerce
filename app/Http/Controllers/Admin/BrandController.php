@@ -40,7 +40,7 @@ class BrandController extends Controller
         $brand->created_by = Auth::user()->id;
         $brand->save();
 
-        return redirect('admin/brand/list')->with('Success', "Brand  Successfully created");
+        return redirect('admin/brand/list')->with('success', "Brand  successfully created");
     }
 
     public function edit($id)
@@ -66,7 +66,7 @@ class BrandController extends Controller
         $brand->meta_keywords = trim($request->meta_keywords);
         $brand->save();
 
-        return redirect('admin/brand/list')->with('Success', "Brand Successfully Updated"); 
+        return redirect('admin/brand/list')->with('success', "Brand successfully Updated"); 
     }
 
     public function delete($id)
@@ -75,6 +75,6 @@ class BrandController extends Controller
         $brand->is_delete =1;
         $brand->save();
 
-        return redirect()->back()->with('Success', "Brand Successfully Deleted"); 
+        return redirect()->back()->with('success', "Brand successfully Deleted"); 
     }
 }

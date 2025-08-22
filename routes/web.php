@@ -72,7 +72,7 @@ Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);
 Route::post('blog/submit_comment', [HomeController::class, 'submit_blog_comment']);
 
 
-Route::group(['middleware' => 'admin'], function() {
+Route::group(['middleware' => 'AdminMiddleware'], function() {
     
 });
 

@@ -42,7 +42,7 @@ class BottomSliderController extends Controller
         $bottom_slider->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $bottom_slider->save();
 
-        return redirect('admin/bottom_slider/list')->with('Success', "Bottom Slider  Successfully created");
+        return redirect('admin/bottom_slider/list')->with('success', "Bottom Slider  successfully created");
     }
 
     public function edit($id)
@@ -73,7 +73,7 @@ class BottomSliderController extends Controller
         $bottom_slider->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $bottom_slider->save();
 
-        return redirect('admin/bottom_slider/list')->with('Success', "Bottom Slider Successfully Updated");
+        return redirect('admin/bottom_slider/list')->with('success', "Bottom Slider successfully Updated");
     }
 
     public function delete($id)
@@ -82,6 +82,6 @@ class BottomSliderController extends Controller
         $bottom_slider->is_delete = 1;
         $bottom_slider->save();
 
-        return redirect()->back()->with('Success', "Bottom Slider Successfully Deleted");
+        return redirect()->back()->with('success', "Bottom Slider successfully Deleted");
     }
 }

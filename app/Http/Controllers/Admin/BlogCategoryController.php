@@ -41,7 +41,7 @@ class BlogCategoryController extends Controller
 
         $blog_category->save();
 
-        return redirect('admin/blog_category/list')->with('Success', "Blog Category Successfully created");
+        return redirect('admin/blog_category/list')->with('success', "Blog Category successfully created");
     }
 
     public function edit($id)
@@ -68,7 +68,7 @@ class BlogCategoryController extends Controller
 
         $blog_category->save();
 
-        return redirect('admin/blog_category/list')->with('Success', "Blog Category Successfully Updated"); 
+        return redirect('admin/blog_category/list')->with('success', "Blog Category successfully Updated"); 
     }
 
     public function delete($id)
@@ -77,7 +77,7 @@ class BlogCategoryController extends Controller
         $blog_category->is_delete =1;
         $blog_category->save();
 
-        return redirect()->back()->with('Success', "Blog Category Successfully Deleted"); 
+        return redirect()->back()->with('success', "Blog Category successfully Deleted"); 
     }
 
 }

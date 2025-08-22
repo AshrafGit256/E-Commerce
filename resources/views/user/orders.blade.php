@@ -48,6 +48,10 @@
             vertical-align: middle;
         }
 
+        .table-responsive {
+            padding-left: 20px; /* Adjust this value as needed */
+        }
+
         .btn-success {
             display: inline-flex;
             align-items: center;
@@ -92,7 +96,7 @@
                                     <thead>
                                         <tr>
                                             <!-- <th>#</th> -->
-                                            <th>Order Number</th>
+                                            <th style="padding-left: 25px;">Order Number</th>
                                             <th>Total Amount</th>
                                             <th>Payment Method</th>
                                             <th>Status</th>
@@ -104,7 +108,7 @@
                                     @foreach($getRecord as $value)
                                         <tr>
                                             <!-- <td>{{ $value->id }}</td> -->
-                                            <td>{{ $value->order_number }}</td>
+                                            <td style="padding-left: 25px;">{{ $value->order_number }}</td>
                                             <td>${{ number_format($value->total_amount, 2) }}</td>
                                             <td class="text-capitalize">{{ $value->payment_method }}</td>
                                             <td>

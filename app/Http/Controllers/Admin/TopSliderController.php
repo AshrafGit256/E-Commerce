@@ -42,7 +42,7 @@ class TopSliderController extends Controller
         $top_slider->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $top_slider->save();
 
-        return redirect('admin/top_slider/list')->with('Success', "Top Slider  Successfully created");
+        return redirect('admin/top_slider/list')->with('success', "Top Slider  successfully created");
     }
 
     public function edit($id)
@@ -73,7 +73,7 @@ class TopSliderController extends Controller
         $top_slider->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $top_slider->save();
 
-        return redirect('admin/top_slider/list')->with('Success', "Top Slider Successfully Updated");
+        return redirect('admin/top_slider/list')->with('success', "Top Slider successfully Updated");
     }
 
     public function delete($id)
@@ -82,6 +82,6 @@ class TopSliderController extends Controller
         $top_slider->is_delete = 1;
         $top_slider->save();
 
-        return redirect()->back()->with('Success', "Top Slider Successfully Deleted");
+        return redirect()->back()->with('success', "Top Slider successfully Deleted");
     }
 }

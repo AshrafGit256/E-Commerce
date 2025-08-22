@@ -151,13 +151,7 @@
                   <th>#</th>
                   <th>Order Number</th>
                   <th>Name</th>
-                  <th>Company Name</th>
-                  <th>Country</th>
-                  <th>Address</th>
-                  <th>City</th>
-                  <th>State</th>
-                  <th>Post Code</th>
-                  <th>Phone</th>
+                  
                   <th>Email</th>
                   <th>Discount Code</th>
                   <th>Discount Amount</th>
@@ -175,13 +169,7 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->order_number}}</td>
                   <td>{{$value->first_name}} {{$value->last_name}}</td>
-                  <td>{{$value->company_name}}</td>
-                  <td>{{$value->country}}</td>
-                  <td>{{$value->address_one}} <br /> {{$value->address_two}}</td>
-                  <td>{{$value->city}}</td>
-                  <td>{{$value->state}}</td>
-                  <td>{{$value->postcode}}</td>
-                  <td>{{$value->phone}}</td>
+                  
                   <td>{{$value->email}}</td>
                   <td>{{$value->discount_code}}</td>
                   <td>{{ number_format($value->discount_amount, 2) }}</td>

@@ -31,7 +31,7 @@ class ColorController extends Controller
         $color->created_by = Auth::user()->id;
         $color->save();
 
-        return redirect('admin/color/list')->with('Success', "Color  Successfully created");
+        return redirect('admin/color/list')->with('success', "Color  successfully created");
     }
 
     public function edit($id)
@@ -49,7 +49,7 @@ class ColorController extends Controller
         $color->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $color->save();
 
-        return redirect('admin/color/list')->with('Success', "Color Successfully Updated"); 
+        return redirect('admin/color/list')->with('success', "Color successfully Updated"); 
     }
 
     public function delete($id)
@@ -58,6 +58,6 @@ class ColorController extends Controller
         $color->is_delete =1;
         $color->save();
 
-        return redirect()->back()->with('Success', "Color Successfully Deleted"); 
+        return redirect()->back()->with('success', "Color successfully Deleted"); 
     }
 }

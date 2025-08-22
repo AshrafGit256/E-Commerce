@@ -143,6 +143,17 @@
                                     <div class="form-group">
                                         <label><i class="fas fa-percentage"></i> Discount Code: <span>{{ $getRecord->discount_code }}</span></label>
                                     </div>
+                                    <div class="form-group">
+                                        <label><i class="fas fa-plane"></i> Shipping Name: <span>{{ $getRecord->getShipping->name }}</span></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><i class="fas fa-plane"></i> Shipping Amount: <span>{{ number_format($getRecord->shipping_amount, 2) }}</span></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><i class="fas fa-dollar-sign"></i> Total Amount: <span>{{ number_format($getRecord->total_amount, 2) }}</span></label>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -164,6 +175,36 @@
                                     <div class="form-group">
                                         <label><i class="fas fa-envelope"></i> Post Code: <span>{{ $getRecord->postcode }}</span></label>
                                     </div>
+                                    <div class="form-group">
+                                        <label><i class="fas fa-credit-card"></i> Payment Method: <span>{{ $getRecord->payment_method }}</span></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>
+                                            <i class="fas fa-info-circle"></i> Status:
+
+                                            @if($getRecord->status == 0)
+                                            <span class="badge badge-warning">Pending</span>
+                                            @elseif($getRecord->status == 1)
+                                            <span class="badge badge-info">In Progress</span>
+                                            @elseif($getRecord->status == 2)
+                                            <span class="badge badge-primary">Delivered</span>
+                                            @elseif($getRecord->status == 3)
+                                            <span class="badge badge-success">Completed</span>
+                                            @elseif($getRecord->status == 4)
+                                            <span class="badge badge-danger">Cancelled</span>
+                                            @endif
+                                            
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><i class="fas fa-sticky-note"></i> Note: <span>{{ $getRecord->note }}</span></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><i class="fas fa-calendar-alt"></i> Created Date: <span>{{ date('d-m-Y h:i A', strtotime($getRecord->created_at)) }}</span></label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -171,44 +212,9 @@
                                 <label><i class="fas fa-money-bill-wave"></i> Discount Amount: <span>{{ number_format($getRecord->discount_amount, 2) }}</span></label>
                             </div>
 
-                            <div class="form-group">
-                                <label><i class="fas fa-plane"></i> Shipping Amount: <span>{{ number_format($getRecord->shipping_amount, 2) }}</span></label>
-                            </div>
+                           
 
-                            <div class="form-group">
-                                <label><i class="fas fa-dollar-sign"></i> Total Amount: <span>{{ number_format($getRecord->total_amount, 2) }}</span></label>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-credit-card"></i> Payment Method: <span>{{ $getRecord->payment_method }}</span></label>
-                            </div>
-
-                            <div class="form-group">
-                                <label>
-                                    <i class="fas fa-info-circle"></i> Status:
-
-                                    @if($getRecord->status == 0)
-                                    <span class="badge badge-warning">Pending</span>
-                                    @elseif($getRecord->status == 1)
-                                    <span class="badge badge-info">In Progress</span>
-                                    @elseif($getRecord->status == 2)
-                                    <span class="badge badge-primary">Delivered</span>
-                                    @elseif($getRecord->status == 3)
-                                    <span class="badge badge-success">Completed</span>
-                                    @elseif($getRecord->status == 4)
-                                    <span class="badge badge-danger">Cancelled</span>
-                                    @endif
-                                    
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-sticky-note"></i> Note: <span>{{ $getRecord->note }}</span></label>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-calendar-alt"></i> Created Date: <span>{{ date('d-m-Y h:i A', strtotime($getRecord->created_at)) }}</span></label>
-                            </div>
+                            
 
                         </div>
                     </div>
@@ -259,12 +265,13 @@
                             </td>
                             <td>{{ $item->getProduct->title }}</td>
                             <td>{{ $item->quantity }}</td>
-                            <td>{{ $item->price }}</td>
-                            <td>{{ $item->color_name }}</td>
+                            <td>${{ $item->price }}</td>
                             <td>{{ $item->size_name }}</td>
+                            <td>{{ $item->color_name }}</td>
+                            
                             <td>{{ $item->size_amount }}</td>
                             
-                            <td>{{ $item->quantity * $item->price }}</td>
+                            <td>${{ $item->quantity * $item->price }}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -158,7 +158,7 @@ $getSettingHeader = App\Models\SystemSettingModel::getSingle();
         @if(!empty(Auth::user()->getImage()))
         <img src="{{ Auth::user()->getImage() }}" class="img-circle elevation-2" alt="User Image" style="height: 60px; width: 60px; border-radius: 20%">
         @else
-        <img src="{{ asset('upload/user/h2.jpg') }}" class="img-circle elevation-2" alt="Default User Image" style="height: 60px; width: 60px; border-radius: 20%">
+        <img src="{{ asset('upload/user/default_profile.jpg') }}" class="img-circle elevation-2" alt="Default User Image" style="height: 60px; width: 60px; border-radius: 50%">
         @endif
       </div>
       <div class="info">

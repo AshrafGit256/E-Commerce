@@ -226,12 +226,12 @@ class OrderModel extends Model
 
     public function getShipping()
     {
-        return $this->belongsTo(ShippingChargeModel::class, 'shipping_id');
+        
     }
 
     public function getItem()
     {
-        return $this->hasMany(OrderItemModel::class, 'order_id');
+        
     }
 
 }

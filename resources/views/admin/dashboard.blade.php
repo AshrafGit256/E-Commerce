@@ -145,13 +145,8 @@
                       <th>#</th>
                       <th>Order Number</th>
                       <th>Name</th>
-                      <th>Country</th>
-                      <th>Address</th>
-                      <th>City</th>
-                      <th>State</th>
-                      <th>Post Code</th>
-                      <th>Phone</th>
-                      <th>Email</th>
+                      
+                      <th>Status</th>
                       <th>Discount Code</th>
                       <th>Discount Amount</th>
                       <th>Shipping Amount</th>
@@ -167,13 +162,24 @@
                     <td>{{$value->id}}</td>
                     <td>{{$value->order_number}}</td>
                     <td>{{$value->first_name}}  {{$value->last_name}}</td>
-                    <td>{{$value->country}}</td>
-                    <td>{{$value->address_one}} <br /> {{$value->address_two}}</td>
-                    <td>{{$value->city}}</td>
-                    <td>{{$value->state}}</td>
-                    <td>{{$value->postcode}}</td>
-                    <td>{{$value->phone}}</td>
-                    <td>{{$value->email}}</td>
+                    
+                    <td>
+
+                    @if($value->status == 0)
+                    <span class="badge badge-warning">Pending</span>
+                    @elseif($value->status == 1)
+                    <span class="badge badge-info">In Progress</span>
+                    @elseif($value->status == 2)
+                    <span class="badge badge-primary">Delivered</span>
+                    @elseif($value->status == 3)
+                    <span class="badge badge-success">Completed</span>
+                    @elseif($value->status == 4)
+                    <span class="badge badge-danger">Cancelled</span>
+                    @endif            
+                                    
+                    </td>
+                            
+                    
                     <td>{{$value->discount_code}}</td>
                     <td>{{ number_format($value->discount_amount, 2) }}</td>
                     <td>{{ number_format($value->shipping_amount, 2) }}</td>

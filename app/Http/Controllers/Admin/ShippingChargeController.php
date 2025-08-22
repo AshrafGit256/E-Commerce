@@ -30,7 +30,7 @@ class ShippingChargeController extends Controller
         $DiscountCode->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $DiscountCode->save();
 
-        return redirect('admin/shipping_charge/list')->with('Success', "Shipping Charge  Successfully created");
+        return redirect('admin/shipping_charge/list')->with('success', "Shipping Charge  successfully created");
     }
 
     public function edit($id)
@@ -48,7 +48,7 @@ class ShippingChargeController extends Controller
         $DiscountCode->status = $request->status ?? 0; // Set a default value (e.g., 0) if status is empty
         $DiscountCode->save();
 
-        return redirect('admin/shipping_charge/list')->with('Success', "Shipping Charge Successfully Updated"); 
+        return redirect('admin/shipping_charge/list')->with('success', "Shipping Charge successfully Updated"); 
     }
 
     public function delete($id)
@@ -57,6 +57,6 @@ class ShippingChargeController extends Controller
         $DiscountCode->is_delete =1;
         $DiscountCode->save();
 
-        return redirect()->back()->with('Success', "Shipping Charge Successfully Deleted"); 
+        return redirect()->back()->with('success', "Shipping Charge successfully Deleted"); 
     }
 }

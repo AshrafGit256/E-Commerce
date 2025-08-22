@@ -40,7 +40,7 @@ class SliderController extends Controller
         $slider->status = trim($request->status ?? 0); // Set a default value (e.g., 0) if status is empty
         $slider->save();
 
-        return redirect('admin/slider/list')->with('Success', "Slider  Successfully created");
+        return redirect('admin/slider/list')->with('success', "Slider  successfully created");
     }
 
     public function edit($id)
@@ -70,7 +70,7 @@ class SliderController extends Controller
         $slider->status = trim($request->status ?? 0); // Set a default value (e.g., 0) if status is empty
         $slider->save();
 
-        return redirect('admin/slider/list')->with('Success', "Slider Successfully Updated"); 
+        return redirect('admin/slider/list')->with('success', "Slider successfully Updated"); 
     }
 
     public function delete($id)
@@ -79,6 +79,6 @@ class SliderController extends Controller
         $slider->is_delete =1;
         $slider->save();
 
-        return redirect()->back()->with('Success', "Slider Successfully Deleted"); 
+        return redirect()->back()->with('success', "Slider successfully Deleted"); 
     }
 }
